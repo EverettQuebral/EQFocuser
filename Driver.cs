@@ -4,13 +4,9 @@
 //
 // ASCOM Focuser driver for EQFocuser
 //
-// Description:	Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam 
-//				nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam 
-//				erat, sed diam voluptua. At vero eos et accusam et justo duo 
-//				dolores et ea rebum. Stet clita kasd gubergren, no sea takimata 
-//				sanctus est Lorem ipsum dolor sit amet.
+// Description:	EQFocuser is an ASCOM Driver for running the EQfocuser.ino code for Arduino. 
 //
-// Implements:	ASCOM Focuser interface version: <To be completed by driver developer>
+// Implements:	ASCOM Focuser interface version: 6.2.0
 // Author:		Everett Quebral <everett.quebral@gmail.com>
 //
 // Edit Log:
