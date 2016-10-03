@@ -95,6 +95,8 @@ namespace ASCOM.EQFocuser
         /// </summary>
         private TraceLogger tl;
 
+        private ASCOM.Utilities.Serial serialPort;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EQFocuser"/> class.
         /// Must be public for COM registration.

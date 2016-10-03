@@ -7,6 +7,10 @@ using System.Text;
 using System.Windows.Forms;
 using ASCOM.Utilities;
 using ASCOM.EQFocuser;
+using System.IO.Ports;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ASCOM.EQFocuser
 {
@@ -55,11 +59,53 @@ namespace ASCOM.EQFocuser
             chkTrace.Checked = Focuser.traceState;
             // set the list of com ports to those that are currently available
             comboBoxComPort.Items.Clear();
-            comboBoxComPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());      // use System.IO because it's static
-            // select the current port if possible
-            if (comboBoxComPort.Items.Contains(Focuser.comPort))
+
+            String[] ports = SerialPort.GetPortNames();
+            foreach(string port in ports)
             {
-                comboBoxComPort.SelectedItem = Focuser.comPort;
+                Debug.WriteLine("Port here: " + port);
+                if (DetectArduino(port))
+                {
+                    comboBoxComPort.Items.Add(port);
+                }
+            }
+            //comboBoxComPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());      // use System.IO because it's static
+            // select the current port if possible
+            if (null != Focuser.comPort)
+            {
+                if (comboBoxComPort.Items.Contains(Focuser.comPort))
+                {
+                    comboBoxComPort.SelectedItem = Focuser.comPort;
+                }
+            }
+            
+        }
+
+        private bool DetectArduino(string portName)
+        {
+            SerialPort testPort = new SerialPort(portName, 9600);
+            try
+            {
+                testPort.Open();
+                testPort.WriteLine("Z");    // command to get the name of the device
+
+                Thread.Sleep(1000);
+                string returnMessage = testPort.ReadExisting().ToString();
+                testPort.Close();
+                Debug.WriteLine(returnMessage);
+
+                if (returnMessage.Contains("EQFOCUSER"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch( Exception e)
+            {
+                return false;
             }
         }
     }
