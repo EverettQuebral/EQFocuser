@@ -97,6 +97,8 @@ namespace ASCOM.EQFocuser
 
         private ASCOM.Utilities.Serial serialPort;
 
+        private MainWindow mainWindow;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EQFocuser"/> class.
         /// Must be public for COM registration.
@@ -111,6 +113,7 @@ namespace ASCOM.EQFocuser
 
             connectedState = false; // Initialise connected to false
             utilities = new Util(); //Initialise util object
+            
             astroUtilities = new AstroUtils(); // Initialise astro utilities object
             //TODO: Implement your additional construction here
 
@@ -137,8 +140,9 @@ namespace ASCOM.EQFocuser
             if (IsConnected)
                 System.Windows.Forms.MessageBox.Show("Already connected, just press OK");
 
-            using (SetupDialogForm F = new SetupDialogForm())
+            using (SetupDialogForm F = new SetupDialogForm(this.DriverInfo))
             {
+               
                 var result = F.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
@@ -218,12 +222,19 @@ namespace ASCOM.EQFocuser
 
                 if (value)
                 {
+                    // Show the Window for the EQFocuser here
+                    mainWindow = new MainWindow(this);
+                    mainWindow.Show();
+
                     connectedState = true;
                     tl.LogMessage("Connected Set", "Connecting to port " + comPort);
                     // TODO connect to the device
                 }
                 else
                 {
+
+                    mainWindow.Close();
+
                     connectedState = false;
                     tl.LogMessage("Connected Set", "Disconnecting from port " + comPort);
                     // TODO disconnect from the device
@@ -290,6 +301,8 @@ namespace ASCOM.EQFocuser
 
         private int focuserPosition = 0; // Class level variable to hold the current focuser position
         private const int focuserSteps = 10000;
+        private double stepSize = 500;
+        private int maxIncrement = 1000;
 
         public bool Absolute
         {
@@ -333,8 +346,13 @@ namespace ASCOM.EQFocuser
         {
             get
             {
-                tl.LogMessage("MaxIncrement Get", focuserSteps.ToString());
-                return focuserSteps; // Maximum change in one move
+                //tl.LogMessage("MaxIncrement Get", focuserSteps.ToString());
+                //return focuserSteps; // Maximum change in one move
+                return maxIncrement;
+            }
+            set
+            {
+                maxIncrement = value;
             }
         }
 
@@ -365,8 +383,13 @@ namespace ASCOM.EQFocuser
         {
             get
             {
-                tl.LogMessage("StepSize Get", "Not implemented");
-                throw new ASCOM.PropertyNotImplementedException("StepSize", false);
+                return stepSize;
+                //tl.LogMessage("StepSize Get", "Not implemented");
+                //throw new ASCOM.PropertyNotImplementedException("StepSize", false);
+            }
+            set
+            {
+                stepSize = value;
             }
         }
 

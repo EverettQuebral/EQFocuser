@@ -17,11 +17,12 @@ namespace ASCOM.EQFocuser
     [ComVisible(false)]					// Form not registered for COM!
     public partial class SetupDialogForm : Form
     {
-        public SetupDialogForm()
+        public SetupDialogForm(string driverInfo)
         {
             InitializeComponent();
             // Initialise current values of user settings from the ASCOM Profile
             InitUI();
+            lblInfo.Text = "EQFocuser ASCOM Driver " + driverInfo;
         }
 
         private void cmdOK_Click(object sender, EventArgs e) // OK button event handler
@@ -107,6 +108,11 @@ namespace ASCOM.EQFocuser
             {
                 return false;
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

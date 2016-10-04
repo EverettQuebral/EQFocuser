@@ -1,6 +1,7 @@
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.EQFocuser.Focuser.dll.config
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.EQFocuser.Focuser.dll
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.EQFocuser.Focuser.pdb
+C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.EQFocuser.Focuser.tlb
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.Astrometry.dll
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.Attributes.dll
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.Controls.dll
@@ -18,10 +19,10 @@ C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.SettingsProvider.xml
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.Utilities.xml
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.Internal.Extensions.xml
-C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\EQFocuser.csprojResolveAssemblyReference.cache
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\ASCOM.EQFocuser.Properties.Resources.resources
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\ASCOM.EQFocuser.SetupDialogForm.resources
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\EQFocuser.csproj.GenerateResource.Cache
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\ASCOM.EQFocuser.Focuser.dll
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\ASCOM.EQFocuser.Focuser.pdb
-C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\bin\Debug\ASCOM.EQFocuser.Focuser.tlb
+C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\ASCOM.EQFocuser.MainWindow.resources
+C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\EQFocuser.csprojResolveAssemblyReference.cache
