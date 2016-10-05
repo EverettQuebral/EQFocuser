@@ -35,6 +35,8 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCurrentPosition = new System.Windows.Forms.TextBox();
+            this.btnMoveTo = new System.Windows.Forms.Button();
+            this.textBoxMoveToPosition = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,6 +58,7 @@
             this.btnReverse.TabIndex = 2;
             this.btnReverse.Text = "<";
             this.btnReverse.UseVisualStyleBackColor = true;
+            this.btnReverse.Click += new System.EventHandler(this.btnReverse_Click);
             // 
             // btnForward
             // 
@@ -65,6 +68,7 @@
             this.btnForward.TabIndex = 3;
             this.btnForward.Text = ">";
             this.btnForward.UseVisualStyleBackColor = true;
+            this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
             // 
             // btnFastForward
             // 
@@ -74,6 +78,7 @@
             this.btnFastForward.TabIndex = 4;
             this.btnFastForward.Text = ">>";
             this.btnFastForward.UseVisualStyleBackColor = true;
+            this.btnFastForward.Click += new System.EventHandler(this.btnFastForward_Click);
             // 
             // numericUpDown1
             // 
@@ -96,6 +101,7 @@
             0,
             0,
             0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label1
             // 
@@ -114,11 +120,30 @@
             this.textBoxCurrentPosition.Size = new System.Drawing.Size(100, 20);
             this.textBoxCurrentPosition.TabIndex = 7;
             // 
+            // btnMoveTo
+            // 
+            this.btnMoveTo.Location = new System.Drawing.Point(17, 93);
+            this.btnMoveTo.Name = "btnMoveTo";
+            this.btnMoveTo.Size = new System.Drawing.Size(75, 23);
+            this.btnMoveTo.TabIndex = 8;
+            this.btnMoveTo.Text = "Move To";
+            this.btnMoveTo.UseVisualStyleBackColor = true;
+            this.btnMoveTo.Click += new System.EventHandler(this.btnMoveTo_Click);
+            // 
+            // textBoxMoveToPosition
+            // 
+            this.textBoxMoveToPosition.Location = new System.Drawing.Point(98, 95);
+            this.textBoxMoveToPosition.Name = "textBoxMoveToPosition";
+            this.textBoxMoveToPosition.Size = new System.Drawing.Size(138, 20);
+            this.textBoxMoveToPosition.TabIndex = 9;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(251, 105);
+            this.ClientSize = new System.Drawing.Size(248, 125);
+            this.Controls.Add(this.textBoxMoveToPosition);
+            this.Controls.Add(this.btnMoveTo);
             this.Controls.Add(this.textBoxCurrentPosition);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown1);
@@ -144,5 +169,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxCurrentPosition;
+        private System.Windows.Forms.Button btnMoveTo;
+        private System.Windows.Forms.TextBox textBoxMoveToPosition;
     }
 }

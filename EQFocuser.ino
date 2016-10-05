@@ -58,7 +58,7 @@ void loop() {
 
   if (stringComplete){
     stringComplete = false;
-    Serial.println(inputString);
+    Serial.println(inputString + "#");
     lastCommand = inputString;
     inputString = "";
   }
@@ -66,7 +66,7 @@ void loop() {
   // we take actions only when commandReady == true
   // and command can only be ready when the stepper has distanceToGo() == 0
   if (lastCommand.length() > 1){
-    Serial.println("stop");
+//    Serial.println("stop");
     stepper1.stop();
     commandReady = true;
     if (commandReady){
@@ -79,38 +79,62 @@ void loop() {
       // C - FORWARD
       // D - FAST-FORWARD
       // E - POSITION - absolute
+      // F - GETPOSITION 
+      // X - GETREADYSTATUS || 0 = READY, NONZERO = BUSY
+      // Z - IDENTIFY || "EQFOCUSER"
       // COMMAND SYNTAX E 1000 - goto absolute position 1000
 
       com = lastCommand.substring(0,1);
       step = lastCommand.substring(2).toInt();
-      if (com.equals("A")) step = stepper1.currentPosition() - step;
-      if (com.equals("B")) step = stepper1.currentPosition() - step;
-      if (com.equals("C")) step = stepper1.currentPosition() + step;
-      if (com.equals("D")) step = stepper1.currentPosition() + step;
-      if (com.equals("E")) step = step;
+      // move commmands
+      if (com.equals("A") || com.equals("B")){
+        step = stepper1.currentPosition() - step;
+      }
+      if (com.equals("C") || com.equals("D")){
+        step = stepper1.currentPosition() + step;
+      }
+      if (com.equals("E")){
+        step = step;
+      }
+
+      if (com.equals("A") || com.equals("B") || com.equals("C") || com.equals("D") || com.equals("E")){
+        Serial.print("Moving to");
+        Serial.print(step);
+        Serial.println("#");
+        stepper1.runToNewPosition(step);
+      }
+
+      if (com.equals("F")){
+        Serial.print(stepper1.currentPosition());
+        Serial.println("#");
+      }
+
+      if (com.equals("Z")){
+        Serial.println("EQFOCUSER#");
+      }
       
 
-//      step = lastCommand.toInt();
-      Serial.print("MOVING TO POSITION ");
-      Serial.println(step);
-      stepper1.runToNewPosition(step);
       lastCommand = "";
+      // this will update the driver
+      Serial.print("POSITION:");
+      Serial.print(stepper1.currentPosition());
+      Serial.println("#");
     }
   }
 
   if (stepper1.targetPosition() == stepper1.currentPosition() && lastCommand.length() > 1){
     Serial.println("********************"); 
   }
-  else {
-    // send a message that it's ready
-    Serial.println("FOCUSER READY");
-    Serial.println(stepper1.currentPosition());
-  }
+//  else {
+//    // send a message that it's ready
+//    Serial.println("FOCUSER READY");
+//    Serial.println(stepper1.currentPosition());
+//  }
   delay(1000);
 }
 
 void serialEvent() {
-  Serial.println("SerialEvent");
+//  Serial.println("SerialEvent");
   while (Serial.available()) {
     // get the new byte:
     char inChar = (char)Serial.read();

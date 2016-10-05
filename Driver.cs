@@ -35,6 +35,7 @@ using ASCOM.Utilities;
 using ASCOM.DeviceInterface;
 using System.Globalization;
 using System.Collections;
+using System.IO.Ports;
 
 namespace ASCOM.EQFocuser
 {
@@ -95,9 +96,11 @@ namespace ASCOM.EQFocuser
         /// </summary>
         private TraceLogger tl;
 
-        private ASCOM.Utilities.Serial serialPort;
+        private SerialPort serialPort;
 
         private MainWindow mainWindow;
+
+        public event EventHandler<FocuserValueChangedEventArgs> FocuserValueChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EQFocuser"/> class.
@@ -117,6 +120,7 @@ namespace ASCOM.EQFocuser
             astroUtilities = new AstroUtils(); // Initialise astro utilities object
             //TODO: Implement your additional construction here
 
+
             tl.LogMessage("Focuser", "Completed initialisation");
         }
 
@@ -124,6 +128,14 @@ namespace ASCOM.EQFocuser
         //
         // PUBLIC COM INTERFACE IFocuserV2 IMPLEMENTATION
         //
+
+        public virtual void OnFocuserValueChanged(FocuserValueChangedEventArgs e)
+        {
+            if (FocuserValueChanged != null)
+            {
+                FocuserValueChanged(this, e);
+            }
+        }
 
         #region Common properties and methods.
 
@@ -191,8 +203,18 @@ namespace ASCOM.EQFocuser
             // it's a good idea to put all the low level communication with the device here,
             // then all communication calls this function
             // you need something to ensure that only one command is in progress at a time
+            if (IsConnected)
+            {
+                serialPort.WriteLine(command + ":" + stepSize);
+                System.Threading.Thread.Sleep(1000);
+            }
 
-            throw new ASCOM.MethodNotImplementedException("CommandString");
+            string message = "sent " + command + ":" + stepSize;
+
+            tl.LogMessage("command ", message);
+
+            System.Diagnostics.Debug.WriteLine("messaage from arduino " + message);
+            return message;
         }
 
         public void Dispose()
@@ -207,6 +229,18 @@ namespace ASCOM.EQFocuser
             astroUtilities = null;
         }
 
+        private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            string[] message = serialPort.ReadTo("#").Split(':');
+            System.Diagnostics.Debug.WriteLine(message[0] + "===" + message[1]);
+            // let's update the current absolute position
+            if (message[0].Contains("POSITION"))
+            {
+                focuserPosition = Convert.ToInt16(message[1]);
+                OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
+            }
+        }
+
         public bool Connected
         {
             get
@@ -217,6 +251,13 @@ namespace ASCOM.EQFocuser
             set
             {
                 tl.LogMessage("Connected Set", value.ToString());
+
+                // well connect to the serial port
+                ReadProfile();
+                serialPort = new SerialPort(comPort, 9600);
+                serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
+                serialPort.Open();
+
                 if (value == IsConnected)
                     return;
 
@@ -232,13 +273,21 @@ namespace ASCOM.EQFocuser
                 }
                 else
                 {
-
+                    serialPort.Close();
                     mainWindow.Close();
 
                     connectedState = false;
                     tl.LogMessage("Connected Set", "Disconnecting from port " + comPort);
                     // TODO disconnect from the device
                 }
+            }
+        }
+
+        public SerialPort SerialPort
+        {
+            get
+            {
+                return serialPort;
             }
         }
 
@@ -368,6 +417,8 @@ namespace ASCOM.EQFocuser
         public void Move(int Position)
         {
             tl.LogMessage("Move", Position.ToString());
+            serialPort.WriteLine("E:" + Position);
+
             focuserPosition = Position; // Set the focuser position
         }
 
@@ -384,8 +435,6 @@ namespace ASCOM.EQFocuser
             get
             {
                 return stepSize;
-                //tl.LogMessage("StepSize Get", "Not implemented");
-                //throw new ASCOM.PropertyNotImplementedException("StepSize", false);
             }
             set
             {
