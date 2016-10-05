@@ -75,6 +75,7 @@ namespace ASCOM.EQFocuser
 
         internal static string comPort; // Variables to hold the currrent device configuration
         internal static bool traceState;
+        
 
         /// <summary>
         /// Private variable to hold the connected state
@@ -97,6 +98,7 @@ namespace ASCOM.EQFocuser
         private TraceLogger tl;
 
         private SerialPort serialPort;
+        private bool isMoving;
 
         private MainWindow mainWindow;
 
@@ -214,6 +216,7 @@ namespace ASCOM.EQFocuser
             tl.LogMessage("command ", message);
 
             System.Diagnostics.Debug.WriteLine("messaage from arduino " + message);
+            this.isMoving = true;
             return message;
         }
 
@@ -237,6 +240,7 @@ namespace ASCOM.EQFocuser
             if (message[0].Contains("POSITION"))
             {
                 focuserPosition = Convert.ToInt16(message[1]);
+                this.isMoving = false;
                 OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
             }
         }
@@ -373,7 +377,7 @@ namespace ASCOM.EQFocuser
             get
             {
                 tl.LogMessage("IsMoving Get", false.ToString());
-                return false; // This focuser always moves instantaneously so no need for IsMoving ever to be True
+                return this.isMoving; // This focuser always moves instantaneously so no need for IsMoving ever to be True
             }
         }
 
@@ -418,8 +422,10 @@ namespace ASCOM.EQFocuser
         {
             tl.LogMessage("Move", Position.ToString());
             serialPort.WriteLine("E:" + Position);
+            isMoving = true;
 
             focuserPosition = Position; // Set the focuser position
+            
         }
 
         public int Position
