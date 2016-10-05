@@ -25,4 +25,3 @@ C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\ASCOM.EQFocuser.Focuser.dll
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\ASCOM.EQFocuser.Focuser.pdb
 C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\ASCOM.EQFocuser.MainWindow.resources
-C:\Users\EQ\documents\visual studio 2015\Projects\EQFocuser\EQFocuser\obj\Debug\EQFocuser.csprojResolveAssemblyReference.cache

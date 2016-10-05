@@ -31,6 +31,7 @@ namespace ASCOM.EQFocuser
             // Update the state variables with results from the dialogue
             Focuser.comPort = (string)comboBoxComPort.SelectedItem;
             Focuser.traceState = chkTrace.Checked;
+            Focuser.showUI = showUI.Checked;
         }
 
         private void cmdCancel_Click(object sender, EventArgs e) // Cancel button event handler

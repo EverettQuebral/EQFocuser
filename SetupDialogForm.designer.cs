@@ -36,6 +36,7 @@ namespace ASCOM.EQFocuser
             this.chkTrace = new System.Windows.Forms.CheckBox();
             this.comboBoxComPort = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.showUI = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.picASCOM)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +44,7 @@ namespace ASCOM.EQFocuser
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(235, 116);
+            this.cmdOK.Location = new System.Drawing.Point(235, 122);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(59, 24);
             this.cmdOK.TabIndex = 0;
@@ -55,7 +56,7 @@ namespace ASCOM.EQFocuser
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(300, 116);
+            this.cmdCancel.Location = new System.Drawing.Point(300, 122);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(59, 25);
             this.cmdCancel.TabIndex = 1;
@@ -89,7 +90,7 @@ namespace ASCOM.EQFocuser
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 121);
+            this.label2.Location = new System.Drawing.Point(12, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 5;
@@ -98,7 +99,7 @@ namespace ASCOM.EQFocuser
             // chkTrace
             // 
             this.chkTrace.AutoSize = true;
-            this.chkTrace.Location = new System.Drawing.Point(163, 121);
+            this.chkTrace.Location = new System.Drawing.Point(16, 130);
             this.chkTrace.Name = "chkTrace";
             this.chkTrace.Size = new System.Drawing.Size(69, 17);
             this.chkTrace.TabIndex = 6;
@@ -108,7 +109,7 @@ namespace ASCOM.EQFocuser
             // comboBoxComPort
             // 
             this.comboBoxComPort.FormattingEnabled = true;
-            this.comboBoxComPort.Location = new System.Drawing.Point(77, 118);
+            this.comboBoxComPort.Location = new System.Drawing.Point(77, 103);
             this.comboBoxComPort.Name = "comboBoxComPort";
             this.comboBoxComPort.Size = new System.Drawing.Size(80, 21);
             this.comboBoxComPort.TabIndex = 7;
@@ -116,17 +117,28 @@ namespace ASCOM.EQFocuser
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 96);
+            this.label3.Location = new System.Drawing.Point(13, 82);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(255, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Select the COM port where EQFocuser is connected";
+            // 
+            // showUI
+            // 
+            this.showUI.AutoSize = true;
+            this.showUI.Location = new System.Drawing.Point(91, 130);
+            this.showUI.Name = "showUI";
+            this.showUI.Size = new System.Drawing.Size(100, 17);
+            this.showUI.TabIndex = 9;
+            this.showUI.Text = "Show Controller";
+            this.showUI.UseVisualStyleBackColor = true;
             // 
             // SetupDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(369, 153);
+            this.Controls.Add(this.showUI);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxComPort);
             this.Controls.Add(this.chkTrace);
@@ -158,5 +170,6 @@ namespace ASCOM.EQFocuser
         private System.Windows.Forms.CheckBox chkTrace;
         private System.Windows.Forms.ComboBox comboBoxComPort;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox showUI;
     }
 }

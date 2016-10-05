@@ -69,12 +69,15 @@ namespace ASCOM.EQFocuser
         private static string driverDescription = "ASCOM Focuser Driver for EQFocuser.";
 
         internal static string comPortProfileName = "COM Port"; // Constants used for Profile persistence
+        internal static string showUIProfileName = "Show Controller";
         internal static string comPortDefault = "COM1";
         internal static string traceStateProfileName = "Trace Level";
         internal static string traceStateDefault = "false";
+        internal static string showUIDefault = "true";
 
         internal static string comPort; // Variables to hold the currrent device configuration
         internal static bool traceState;
+        internal static bool showUI;
         
 
         /// <summary>
@@ -268,8 +271,11 @@ namespace ASCOM.EQFocuser
                 if (value)
                 {
                     // Show the Window for the EQFocuser here
-                    mainWindow = new MainWindow(this);
-                    mainWindow.Show();
+                    if (showUI)
+                    {
+                        mainWindow = new MainWindow(this);
+                        mainWindow.Show();
+                    }
 
                     connectedState = true;
                     tl.LogMessage("Connected Set", "Connecting to port " + comPort);
@@ -278,7 +284,10 @@ namespace ASCOM.EQFocuser
                 else
                 {
                     serialPort.Close();
-                    mainWindow.Close();
+                    if (showUI)
+                    {
+                        mainWindow.Close();
+                    }
 
                     connectedState = false;
                     tl.LogMessage("Connected Set", "Disconnecting from port " + comPort);
@@ -594,6 +603,7 @@ namespace ASCOM.EQFocuser
                 driverProfile.DeviceType = "Focuser";
                 traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, string.Empty, traceStateDefault));
                 comPort = driverProfile.GetValue(driverID, comPortProfileName, string.Empty, comPortDefault);
+                showUI = Convert.ToBoolean(driverProfile.GetValue(driverID, showUIProfileName, string.Empty, showUIDefault));
             }
         }
 
@@ -607,6 +617,7 @@ namespace ASCOM.EQFocuser
                 driverProfile.DeviceType = "Focuser";
                 driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString());
                 driverProfile.WriteValue(driverID, comPortProfileName, comPort.ToString());
+                driverProfile.WriteValue(driverID, showUIProfileName, showUI.ToString());
             }
         }
 
