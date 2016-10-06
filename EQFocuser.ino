@@ -26,7 +26,7 @@
 
 #include <AccelStepper.h>
 // steps
-#define FULL_ROTATION 8
+
 
 // motor pins
 #define motorPin5 8 // blue
@@ -35,7 +35,7 @@
 #define motorPin8 11 // orange
 
 // Declaration needed for the AccelStepper Library
-AccelStepper stepper1(FULL_ROTATION, motorPin5, motorPin7, motorPin6, motorPin8);
+AccelStepper stepper1(AccelStepper::FULL4WIRE, motorPin5, motorPin7, motorPin6, motorPin8);
 
 // for command purposes
 String inputString = "";
@@ -46,9 +46,9 @@ int step = 0;
 String com;
 
 void setup() {
-  stepper1.setMaxSpeed(1000.0);
+  stepper1.setMaxSpeed(300.0);
   stepper1.setAcceleration(100.0);
-  stepper1.setSpeed(10);
+  stepper1.setSpeed(100);
   
   Serial.begin(9600);
   inputString.reserve(200);
@@ -80,6 +80,7 @@ void loop() {
       // D - FAST-FORWARD
       // E - POSITION - absolute
       // F - GETPOSITION 
+      // G - SPEED
       // X - GETREADYSTATUS || 0 = READY, NONZERO = BUSY
       // Z - IDENTIFY || "EQFOCUSER"
       // COMMAND SYNTAX E 1000 - goto absolute position 1000
@@ -130,7 +131,7 @@ void loop() {
 //    Serial.println("FOCUSER READY");
 //    Serial.println(stepper1.currentPosition());
 //  }
-  delay(1000);
+  delay(100);
 }
 
 void serialEvent() {
