@@ -28,6 +28,7 @@
 // steps
 
 
+
 // motor pins
 #define motorPin5 8 // blue
 #define motorPin6 9 // pink
@@ -45,6 +46,16 @@ boolean commandReady = false;
 int step = 0;
 String com;
 
+// for pin values
+int ccwPin = 7;
+int cwPin = 6;
+int ccwVal = 0;
+int cwVal = 0;
+
+// for the variable resistor
+int potpin = 0;
+int variableResistorValue = 10;
+
 void setup() {
   stepper1.setMaxSpeed(300.0);
   stepper1.setAcceleration(100.0);
@@ -52,86 +63,111 @@ void setup() {
   
   Serial.begin(9600);
   inputString.reserve(200);
+
+  pinMode(ccwPin, INPUT_PULLUP);
+  pinMode(cwPin, INPUT_PULLUP);
 }
 
 void loop() {
+  variableResistorValue = analogRead(potpin);  
+  cwVal = digitalRead(cwPin);
+  ccwVal = digitalRead(ccwPin);
 
-  if (stringComplete){
-    stringComplete = false;
-    Serial.println(inputString + "#");
-    lastCommand = inputString;
-    inputString = "";
-  }
+  if (ccwVal == HIGH && cwVal == HIGH){
+    // no pin is being pressed
+    stepper1.setSpeed(100);
+    if (stringComplete){
+      stringComplete = false;
+      Serial.println(inputString + "#");
+      lastCommand = inputString;
+      inputString = "";
+    }
+    
+    // we take actions only when commandReady == true
+    // and command can only be ready when the stepper has distanceToGo() == 0
+    if (lastCommand.length() > 1){
+      stepper1.stop();
+      commandReady = true;
+      if (commandReady){
+        commandReady = false;
+        Serial.println(lastCommand);
   
-  // we take actions only when commandReady == true
-  // and command can only be ready when the stepper has distanceToGo() == 0
-  if (lastCommand.length() > 1){
-//    Serial.println("stop");
-    stepper1.stop();
-    commandReady = true;
-    if (commandReady){
-      commandReady = false;
-      Serial.println(lastCommand);
-
-      // COMMANDS that are available will be processed here
-      // A - FAST-REVERSE - A 1000 - goto currentPosition() - 1000
-      // B - REVERSE
-      // C - FORWARD
-      // D - FAST-FORWARD
-      // E - POSITION - absolute
-      // F - GETPOSITION 
-      // G - SPEED
-      // X - GETREADYSTATUS || 0 = READY, NONZERO = BUSY
-      // Z - IDENTIFY || "EQFOCUSER"
-      // COMMAND SYNTAX E 1000 - goto absolute position 1000
-
-      com = lastCommand.substring(0,1);
-      step = lastCommand.substring(2).toInt();
-      // move commmands
-      if (com.equals("A") || com.equals("B")){
-        step = stepper1.currentPosition() - step;
-      }
-      if (com.equals("C") || com.equals("D")){
-        step = stepper1.currentPosition() + step;
-      }
-      if (com.equals("E")){
-        step = step;
-      }
-
-      if (com.equals("A") || com.equals("B") || com.equals("C") || com.equals("D") || com.equals("E")){
-        Serial.print("Moving to");
-        Serial.print(step);
-        Serial.println("#");
-        stepper1.runToNewPosition(step);
-      }
-
-      if (com.equals("F")){
+        // COMMANDS that are available will be processed here
+        // A - FAST-REVERSE - A 1000 - goto currentPosition() - 1000
+        // B - REVERSE
+        // C - FORWARD
+        // D - FAST-FORWARD
+        // E - POSITION - absolute
+        // F - GETPOSITION 
+        // G - SPEED
+        // X - GETREADYSTATUS || 0 = READY, NONZERO = BUSY
+        // Z - IDENTIFY || "EQFOCUSER"
+        // COMMAND SYNTAX E 1000 - goto absolute position 1000
+  
+        com = lastCommand.substring(0,1);
+        step = lastCommand.substring(2).toInt();
+        // move commmands
+        if (com.equals("A") || com.equals("B")){
+          step = stepper1.currentPosition() - step;
+        }
+        if (com.equals("C") || com.equals("D")){
+          step = stepper1.currentPosition() + step;
+        }
+        if (com.equals("E")){
+          step = step;
+        }
+  
+        if (com.equals("A") || com.equals("B") || com.equals("C") || com.equals("D") || com.equals("E")){
+          Serial.print("Moving to");
+          Serial.print(step);
+          Serial.println("#");
+          stepper1.runToNewPosition(step);
+        }
+  
+        if (com.equals("F")){
+          Serial.print(stepper1.currentPosition());
+          Serial.println("#");
+        }
+  
+        if (com.equals("Z")){
+          Serial.println("EQFOCUSER#");
+        }
+        
+  
+        lastCommand = "";
+        // this will update the driver
+        Serial.print("POSITION:");
         Serial.print(stepper1.currentPosition());
         Serial.println("#");
       }
-
-      if (com.equals("Z")){
-        Serial.println("EQFOCUSER#");
+    }
+    delay(100);
+  }
+  else {
+    // listen to PULLUP Pins)
+    if (ccwVal == LOW || cwVal == LOW){
+      // the PULLUP Pins are pressed
+      if (ccwVal == LOW){
+        stepper1.runToNewPosition(stepper1.currentPosition() - variableResistorValue);
       }
-      
-
-      lastCommand = "";
-      // this will update the driver
+      if (cwVal == LOW){
+        stepper1.runToNewPosition(stepper1.currentPosition() + variableResistorValue);
+      }
+      Serial.print("Variable Resistor:");
+      Serial.println(variableResistorValue);
       Serial.print("POSITION:");
       Serial.print(stepper1.currentPosition());
       Serial.println("#");
     }
+    delay(100);
   }
+    
 
   if (stepper1.targetPosition() == stepper1.currentPosition() && lastCommand.length() > 1){
     Serial.println("********************"); 
   }
-//  else {
-//    // send a message that it's ready
-//    Serial.println("FOCUSER READY");
-//    Serial.println(stepper1.currentPosition());
-//  }
-  delay(100);
+
+
 }
 
 void serialEvent() {
