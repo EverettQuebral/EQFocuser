@@ -261,13 +261,20 @@ namespace ASCOM.EQFocuser
 
                 // well connect to the serial port
                 ReadProfile();
-                serialPort = new SerialPort(comPort, 9600);
-                serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
-                serialPort.Open();
 
                 if (value == IsConnected)
+                {
+                    if (!mainWindow.Visible)
+                    {
+                        if (showUI)
+                        {
+                            mainWindow = new MainWindow(this);
+                            mainWindow.Show();
+                        }
+                    }
                     return;
-
+                }
+                    
                 if (value)
                 {
                     // Show the Window for the EQFocuser here
@@ -279,19 +286,25 @@ namespace ASCOM.EQFocuser
 
                     connectedState = true;
                     tl.LogMessage("Connected Set", "Connecting to port " + comPort);
-                    // TODO connect to the device
+
+                    // we need to know the current position
+                    serialPort = new SerialPort(comPort, 9600);
+                    serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
+                    serialPort.Open();
+                    this.CommandString("F", true); // async
+                    this.isMoving = false;
                 }
                 else
                 {
+                    connectedState = false;
+                    tl.LogMessage("Connected Set", "Disconnecting from port " + comPort);
+                    // TODO disconnect from the device
+
                     serialPort.Close();
                     if (showUI)
                     {
                         mainWindow.Close();
                     }
-
-                    connectedState = false;
-                    tl.LogMessage("Connected Set", "Disconnecting from port " + comPort);
-                    // TODO disconnect from the device
                 }
             }
         }
@@ -434,7 +447,6 @@ namespace ASCOM.EQFocuser
             isMoving = true;
 
             focuserPosition = Position; // Set the focuser position
-            
         }
 
         public int Position

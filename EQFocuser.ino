@@ -57,7 +57,7 @@ int potpin = 0;
 int variableResistorValue = 10;
 
 void setup() {
-  stepper1.setMaxSpeed(300.0);
+  stepper1.setMaxSpeed(100.0);
   stepper1.setAcceleration(100.0);
   stepper1.setSpeed(100);
   
@@ -72,6 +72,8 @@ void loop() {
   variableResistorValue = analogRead(potpin);  
   cwVal = digitalRead(cwPin);
   ccwVal = digitalRead(ccwPin);
+//  Serial.println(cwVal);
+//  Serial.println(ccwVal);
 
   if (ccwVal == HIGH && cwVal == HIGH){
     // no pin is being pressed
@@ -99,7 +101,8 @@ void loop() {
         // D - FAST-FORWARD
         // E - POSITION - absolute
         // F - GETPOSITION 
-        // G - SPEED
+        // G - SPEED - NOT USED FOR NOW
+        // H - RESET TO 0 POSITION
         // X - GETREADYSTATUS || 0 = READY, NONZERO = BUSY
         // Z - IDENTIFY || "EQFOCUSER"
         // COMMAND SYNTAX E 1000 - goto absolute position 1000
@@ -115,6 +118,9 @@ void loop() {
         }
         if (com.equals("E")){
           step = step;
+        }
+        if (com.equals("G")){
+          stepper1.setCurrentPosition(0);
         }
   
         if (com.equals("A") || com.equals("B") || com.equals("C") || com.equals("D") || com.equals("E")){
@@ -144,7 +150,6 @@ void loop() {
     delay(100);
   }
   else {
-    // listen to PULLUP Pins)
     if (ccwVal == LOW || cwVal == LOW){
       // the PULLUP Pins are pressed
       if (ccwVal == LOW){
@@ -153,8 +158,8 @@ void loop() {
       if (cwVal == LOW){
         stepper1.runToNewPosition(stepper1.currentPosition() + variableResistorValue);
       }
-      Serial.print("Variable Resistor:");
-      Serial.println(variableResistorValue);
+//      Serial.print("Variable Resistor:");
+//      Serial.println(variableResistorValue);
       Serial.print("POSITION:");
       Serial.print(stepper1.currentPosition());
       Serial.println("#");

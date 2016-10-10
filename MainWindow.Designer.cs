@@ -37,6 +37,8 @@
             this.textBoxCurrentPosition = new System.Windows.Forms.TextBox();
             this.btnMoveTo = new System.Windows.Forms.Button();
             this.textBoxMoveToPosition = new System.Windows.Forms.TextBox();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.lblAction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,6 +121,7 @@
             this.textBoxCurrentPosition.ReadOnly = true;
             this.textBoxCurrentPosition.Size = new System.Drawing.Size(100, 20);
             this.textBoxCurrentPosition.TabIndex = 7;
+            this.textBoxCurrentPosition.TextChanged += new System.EventHandler(this.textBoxCurrentPosition_TextChanged);
             // 
             // btnMoveTo
             // 
@@ -137,11 +140,33 @@
             this.textBoxMoveToPosition.Size = new System.Drawing.Size(138, 20);
             this.textBoxMoveToPosition.TabIndex = 9;
             // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(17, 122);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.TabIndex = 10;
+            this.btnReset.Text = "Reset to 0";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAction.Location = new System.Drawing.Point(101, 127);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(65, 13);
+            this.lblAction.TabIndex = 11;
+            this.lblAction.Text = "READY....";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(248, 125);
+            this.ClientSize = new System.Drawing.Size(249, 157);
+            this.Controls.Add(this.lblAction);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.textBoxMoveToPosition);
             this.Controls.Add(this.btnMoveTo);
             this.Controls.Add(this.textBoxCurrentPosition);
@@ -154,6 +179,7 @@
             this.Name = "MainWindow";
             this.ShowIcon = false;
             this.Text = "EQ Focuser";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -171,5 +197,7 @@
         private System.Windows.Forms.TextBox textBoxCurrentPosition;
         private System.Windows.Forms.Button btnMoveTo;
         private System.Windows.Forms.TextBox textBoxMoveToPosition;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Label lblAction;
     }
 }

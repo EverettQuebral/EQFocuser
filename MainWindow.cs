@@ -33,6 +33,8 @@ namespace ASCOM.EQFocuser
             {
                 textBoxCurrentPosition.Text = position.ToString();
             }
+
+            if (!focuser.IsMoving) lblAction.Text = "READY...";
         }
         private void FocuserValueChanged(object sender, FocuserValueChangedEventArgs e)
         {
@@ -43,6 +45,7 @@ namespace ASCOM.EQFocuser
         private void btnFastReverse_Click(object sender, EventArgs e)
         {
             focuser.CommandString("A", true);
+            lblAction.Text = "MOVING....";
         }
 
         private void InitControls()
@@ -53,16 +56,19 @@ namespace ASCOM.EQFocuser
         private void btnReverse_Click(object sender, EventArgs e)
         {
             focuser.CommandString("B", true);
+            lblAction.Text = "MOVING....";
         }
 
         private void btnForward_Click(object sender, EventArgs e)
         {
             focuser.CommandString("C", true);
+            lblAction.Text = "MOVING....";
         }
 
         private void btnFastForward_Click(object sender, EventArgs e)
         {
             focuser.CommandString("D", true);
+            lblAction.Text = "MOVING....";
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -73,6 +79,23 @@ namespace ASCOM.EQFocuser
         private void btnMoveTo_Click(object sender, EventArgs e)
         {
             focuser.Move(Convert.ToInt16(textBoxMoveToPosition.Text));
+            lblAction.Text = "MOVING....";
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            focuser.CommandString("G", true);
+            SetCurrentPosition(0);
+        }
+
+        private void textBoxCurrentPosition_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            this.textBoxCurrentPosition.Text = focuser.Position.ToString();
         }
     }
 }
