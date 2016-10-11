@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FocuserStateChangedEventArgs.cs" />
     <Compile Include="FocuserValueChangedEventArgs.cs" />
     <Compile Include="Driver.cs" />
     <Compile Include="MainWindow.cs">

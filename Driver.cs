@@ -46,8 +46,6 @@ namespace ASCOM.EQFocuser
     // The ClassInterface/None addribute prevents an empty interface called
     // _EQFocuser from being created and used as the [default] interface
     //
-    // TODO Replace the not implemented exceptions with code to implement the function or
-    // throw the appropriate ASCOM exception.
     //
 
     /// <summary>
@@ -62,7 +60,6 @@ namespace ASCOM.EQFocuser
         /// The DeviceID is used by ASCOM applications to load the driver at runtime.
         /// </summary>
         internal static string driverID = "ASCOM.EQFocuser.Focuser";
-        // TODO Change the descriptive string for your driver then remove this line
         /// <summary>
         /// Driver description that displays in the ASCOM Chooser.
         /// </summary>
@@ -116,6 +113,8 @@ namespace ASCOM.EQFocuser
 
         public event EventHandler<FocuserValueChangedEventArgs> FocuserValueChanged;
 
+        public event EventHandler<FocuserStateChangedEventArgs> FocuserStateChanged;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EQFocuser"/> class.
         /// Must be public for COM registration.
@@ -139,12 +138,19 @@ namespace ASCOM.EQFocuser
         //
         // PUBLIC COM INTERFACE IFocuserV2 IMPLEMENTATION
         //
-
         public virtual void OnFocuserValueChanged(FocuserValueChangedEventArgs e)
         {
             if (FocuserValueChanged != null)
             {
                 FocuserValueChanged(this, e);
+            }
+        }
+
+        public virtual void OnFocuserStateChanged(FocuserStateChangedEventArgs e)
+        {
+            if (FocuserStateChanged != null)
+            {
+                FocuserStateChanged(this, e);
             }
         }
 
@@ -243,14 +249,27 @@ namespace ASCOM.EQFocuser
 
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            string[] message = serialPort.ReadTo("#").Split(':');
-            System.Diagnostics.Debug.WriteLine(message[0] + "===" + message[1]);
-            // let's update the current absolute position
-            if (message[0].Contains("POSITION"))
+            try
             {
-                focuserPosition = Convert.ToInt16(message[1]);
-                this.isMoving = false;
-                OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
+                string[] message = serialPort.ReadTo("#").Split(':');
+                System.Diagnostics.Debug.WriteLine(message[0] + "===" + message[1]);
+                // let's update the current absolute position
+                if (message[0].Contains("POSITION"))
+                {
+                    focuserPosition = Convert.ToInt16(message[1]);
+                    OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
+                    OnFocuserStateChanged(new FocuserStateChangedEventArgs(false));
+                    isMoving = false;
+                }
+                if (message[0].Contains("MOVING"))
+                {
+                    OnFocuserStateChanged(new FocuserStateChangedEventArgs(true));
+                    isMoving = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                tl.LogMessage("Exception on getting meesage ", ex.Message);
             }
         }
 

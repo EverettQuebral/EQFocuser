@@ -179,7 +179,6 @@
             this.Name = "MainWindow";
             this.ShowIcon = false;
             this.Text = "EQ Focuser";
-            this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
