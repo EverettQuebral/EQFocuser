@@ -52,7 +52,7 @@ void loop() {
   if (ccwVal == LOW || cwVal == LOW){
     // the PULLUP Pins are pressed
     Serial.print("MOVING:");
-    Serial.print(variableResistorValue);
+    Serial.print(variableResistorValue + stepper1.currentPosition());
     Serial.println("#");
     if (ccwVal == LOW){
       stepper1.runToNewPosition(stepper1.currentPosition() - variableResistorValue);
@@ -129,8 +129,6 @@ void serialCommand(String commandString){
   
   Serial.print(_answer);
   Serial.println("#");
-  // we need some delay here so the answer can be picked up by the client
-  delay(100);
 }
 
 /**
