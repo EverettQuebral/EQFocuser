@@ -67,7 +67,6 @@ namespace ASCOM.EQFocuser
         /// Driver description that displays in the ASCOM Chooser.
         /// </summary>
         private static string driverDescription = "ASCOM Focuser Driver for EQFocuser.";
-
         internal static string comPortProfileName = "COM Port"; // Constants used for Profile persistence
         internal static string showUIProfileName = "Show Controller";
         internal static string comPortDefault = "COM1";
@@ -100,9 +99,19 @@ namespace ASCOM.EQFocuser
         /// </summary>
         private TraceLogger tl;
 
+        /// <summary>
+        /// Private variable to hold the serial port object
+        /// </summary>
         private SerialPort serialPort;
+
+        /// <summary>
+        /// Private variable that hold the value whether the focuser is moving or not
+        /// </summary>
         private bool isMoving;
 
+        /// <summary>
+        /// Private variable that hold the reference to the Main Window
+        /// </summary>
         private MainWindow mainWindow;
 
         public event EventHandler<FocuserValueChangedEventArgs> FocuserValueChanged;
@@ -123,9 +132,6 @@ namespace ASCOM.EQFocuser
             utilities = new Util(); //Initialise util object
             
             astroUtilities = new AstroUtils(); // Initialise astro utilities object
-            //TODO: Implement your additional construction here
-
-
             tl.LogMessage("Focuser", "Completed initialisation");
         }
 
@@ -264,13 +270,10 @@ namespace ASCOM.EQFocuser
 
                 if (value == IsConnected)
                 {
-                    if (!mainWindow.Visible)
+                    if (!mainWindow.Visible && showUI)
                     {
-                        if (showUI)
-                        {
-                            mainWindow = new MainWindow(this);
-                            mainWindow.Show();
-                        }
+                        mainWindow = new MainWindow(this);
+                        mainWindow.Show();
                     }
                     return;
                 }
@@ -298,7 +301,6 @@ namespace ASCOM.EQFocuser
                 {
                     connectedState = false;
                     tl.LogMessage("Connected Set", "Disconnecting from port " + comPort);
-                    // TODO disconnect from the device
 
                     serialPort.Close();
                     if (showUI)
@@ -319,7 +321,6 @@ namespace ASCOM.EQFocuser
 
         public string Description
         {
-            // TODO customise this device description
             get
             {
                 tl.LogMessage("Description Get", driverDescription);
@@ -332,7 +333,6 @@ namespace ASCOM.EQFocuser
             get
             {
                 Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-                // TODO customise this driver description
                 string driverInfo = "Information about the driver itself. Version: " + String.Format(CultureInfo.InvariantCulture, "{0}.{1}", version.Major, version.Minor);
                 tl.LogMessage("DriverInfo Get", driverInfo);
                 return driverInfo;
@@ -421,8 +421,6 @@ namespace ASCOM.EQFocuser
         {
             get
             {
-                //tl.LogMessage("MaxIncrement Get", focuserSteps.ToString());
-                //return focuserSteps; // Maximum change in one move
                 return maxIncrement;
             }
             set
