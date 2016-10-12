@@ -229,7 +229,7 @@ namespace ASCOM.EQFocuser
             if (IsConnected)
             {
                 serialPort.WriteLine(command + ":" + stepSize);
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(100);
             }
 
             string message = "sent " + command + ":" + stepSize;
