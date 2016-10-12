@@ -114,5 +114,23 @@ namespace ASCOM.EQFocuser
         {
 
         }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            // acceleration
+            focuser.Action("H", numericUpDown2.Value.ToString());
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            // max speed
+            focuser.Action("J", numericUpDown3.Value.ToString());
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+            // speed
+            focuser.Action("I", numericUpDown4.Value.ToString());
+        }
     }
 }

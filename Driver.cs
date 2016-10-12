@@ -191,7 +191,13 @@ namespace ASCOM.EQFocuser
 
         public string Action(string actionName, string actionParameters)
         {
-            throw new ASCOM.ActionNotImplementedException("Action " + actionName + " is not implemented by this driver");
+            CheckConnected("Action");
+            if (IsConnected)
+            {
+                serialPort.WriteLine(actionName + ":" + actionParameters);
+                System.Threading.Thread.Sleep(100);
+            }
+            return "";
         }
 
         public void CommandBlind(string command, bool raw)
