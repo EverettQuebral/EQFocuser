@@ -15,11 +15,7 @@ AccelStepper stepper1(AccelStepper::FULL4WIRE, motorPin5, motorPin7, motorPin6, 
 
 // for command purposes
 String inputString = "";
-String lastCommand = "";
-boolean stringComplete = false;
-boolean commandReady = false;
 int step = 0;
-String com;
 
 // for pin values
 int ccwPin = 7;
@@ -177,8 +173,6 @@ void serialCommand(String commandString) {
 
 	Serial.print(_answer);
 	Serial.println("#");
-	// we need some delay here so the answer can be picked up by the client
-	//  delay(100);
 }
 
 /**
@@ -192,7 +186,6 @@ void serialEvent() {
 		if (inChar == '\n') {
 			serialCommand(inputString);
 			inputString = "";
-			stringComplete = true;  // deprecated
 		}
 	}
 }
