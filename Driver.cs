@@ -258,9 +258,9 @@ namespace ASCOM.EQFocuser
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             message = SerialPort.ReadTo("#");
-            //System.Diagnostics.Debug.WriteLine(message);
+            System.Diagnostics.Debug.WriteLine(message);
             existingMessage = SerialPort.ReadExisting();
-            //System.Diagnostics.Debug.WriteLine("Existing" + existingMessage);
+            System.Diagnostics.Debug.WriteLine("Existing" + existingMessage);
 
             if (message.Contains("POSITION")){
                 focuserPosition = Convert.ToInt16(message.Split(':')[1]);
