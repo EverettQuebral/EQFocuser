@@ -134,6 +134,8 @@ namespace ASCOM.EQFocuser
             tl.LogMessage("Focuser", "Completed initialisation");
         }
 
+        private string message;
+        private string existingMessage;
 
         //
         // PUBLIC COM INTERFACE IFocuserV2 IMPLEMENTATION
@@ -255,27 +257,22 @@ namespace ASCOM.EQFocuser
 
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            try
-            {
-                string[] message = serialPort.ReadTo("#").Split(':');
-                System.Diagnostics.Debug.WriteLine(message[0] + "===" + message[1]);
-                // let's update the current absolute position
-                if (message[0].Contains("POSITION"))
-                {
-                    focuserPosition = Convert.ToInt16(message[1]);
-                    OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
-                    OnFocuserStateChanged(new FocuserStateChangedEventArgs(false));
-                    isMoving = false;
-                }
-                if (message[0].Contains("MOVING"))
-                {
-                    OnFocuserStateChanged(new FocuserStateChangedEventArgs(true));
-                    isMoving = false;
-                }
+            message = SerialPort.ReadTo("#");
+            //System.Diagnostics.Debug.WriteLine(message);
+            existingMessage = SerialPort.ReadExisting();
+            //System.Diagnostics.Debug.WriteLine("Existing" + existingMessage);
+
+            if (message.Contains("POSITION")){
+                focuserPosition = Convert.ToInt16(message.Split(':')[1]);
+                isMoving = false;
+                OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
+                OnFocuserStateChanged(new FocuserStateChangedEventArgs(false));
             }
-            catch (Exception ex)
+
+            if (message.Contains("MOVING"))
             {
-                tl.LogMessage("Exception on getting meesage ", ex.Message);
+                OnFocuserStateChanged(new FocuserStateChangedEventArgs(true));
+                isMoving = false;
             }
         }
 

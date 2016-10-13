@@ -31,6 +31,10 @@ int cwVal = 0;
 int potpin = 0;
 int variableResistorValue = 10;
 
+// for manual control
+long toPosition;
+bool positionReported = false;
+
 void setup() {
   stepper1.setMaxSpeed(100.0);
   stepper1.setAcceleration(100.0);
@@ -52,21 +56,41 @@ void loop() {
   if (ccwVal == LOW || cwVal == LOW){
     // the PULLUP Pins are pressed
     Serial.print("MOVING:");
-    Serial.print(variableResistorValue + stepper1.currentPosition());
-    Serial.println("#");
     if (ccwVal == LOW){
-      stepper1.runToNewPosition(stepper1.currentPosition() - variableResistorValue);
+      toPosition = stepper1.currentPosition() - variableResistorValue / 102.4;
+      Serial.print(toPosition);
+      stepper1.moveTo(toPosition);
     }
     if (cwVal == LOW){
-      stepper1.runToNewPosition(stepper1.currentPosition() + variableResistorValue);
+      toPosition = stepper1.currentPosition() + variableResistorValue / 102.4;
+      Serial.print(toPosition);
+      stepper1.moveTo(toPosition);
     }
-
-    Serial.print("POSITION:");
-    Serial.print(stepper1.currentPosition());
     Serial.println("#");
-  } 
+    stepper1.run();
+//    reportPosition();
+  }
+  else {
+    if (stepper1.distanceToGo() != 0){
+      // let the stepper finish the movement
+      stepper1.run();
+      positionReported = false;
+    }
+    if (stepper1.distanceToGo() == 0 && !positionReported){
+      // report the position so the focuser state can change
+      reportPosition();
+      delay(500);
+      positionReported = true;
+    }
+  }
 }
 
+
+void reportPosition(){
+  Serial.print("POSITION:");
+  Serial.print(stepper1.currentPosition());
+  Serial.println("#");
+}
 
 /**
  * process the command we recieved from the client
@@ -104,8 +128,28 @@ void serialCommand(String commandString){
                _currentPosition = 0;
                stepper1.setCurrentPosition(0);
       break;
-    case 'H' :  // NOT IMPLEMENTED
-    case 'h' :
+    case 'H' :  // SET ACCELERATION
+    case 'h' : _newPosition = _currentPosition; // non move command
+               stepper1.setAcceleration(_step);
+               _answer += "SET-ACCELERATION:";
+               _answer += _step;
+      break;
+    case 'I' :  // SET SPEED
+               _newPosition = _currentPosition; // non move command
+               stepper1.setSpeed(_step);
+               _answer += "SET-SPEED:";
+               _answer += _step;
+      break;
+    case 'i' :  // GET SPEED
+                _newPosition = _currentPosition; // non move command
+                _answer += "GET-SPEED:";
+                _answer += stepper1.speed();
+      break;
+    case 'J' :  // SET MAX SPEED
+    case 'j' :  _newPosition = _currentPosition; // non move command
+                stepper1.setMaxSpeed(_step);
+                _answer += "SET-MAXSPEED:";
+                _answer += _step;
       break;
     case 'X' :  // GET STATUS - may not be needed
     case 'x' :
@@ -129,6 +173,8 @@ void serialCommand(String commandString){
   
   Serial.print(_answer);
   Serial.println("#");
+  // we need some delay here so the answer can be picked up by the client
+//  delay(100);
 }
 
 /**
