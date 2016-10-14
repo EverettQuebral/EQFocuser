@@ -272,7 +272,7 @@ namespace ASCOM.EQFocuser
             if (message.Contains("MOVING"))
             {
                 OnFocuserStateChanged(new FocuserStateChangedEventArgs(true));
-                isMoving = false;
+                isMoving = true;
             }
         }
 
