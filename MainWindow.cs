@@ -183,5 +183,11 @@ namespace ASCOM.EQFocuser
                 focuser.CommandString("k", true);
             }
         }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Stopping the motor");
+            focuser.CommandString("X", true);
+        }
     }
 }

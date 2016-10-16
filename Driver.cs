@@ -214,7 +214,7 @@ namespace ASCOM.EQFocuser
         public string Action(string actionName, string actionParameters)
         {
             CheckConnected("Action");
-            if (IsConnected && !IsMoving)
+            if (IsConnected)
             {
                 serialPort.WriteLine(actionName + ":" + actionParameters);
                 System.Threading.Thread.Sleep(100);

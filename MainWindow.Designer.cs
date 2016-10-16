@@ -52,6 +52,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnStop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
@@ -106,7 +107,7 @@
             0,
             0,
             0});
-            this.numericUpDown1.Location = new System.Drawing.Point(92, 77);
+            this.numericUpDown1.Location = new System.Drawing.Point(93, 105);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -142,7 +143,7 @@
             // 
             // btnMoveTo
             // 
-            this.btnMoveTo.Location = new System.Drawing.Point(17, 104);
+            this.btnMoveTo.Location = new System.Drawing.Point(17, 129);
             this.btnMoveTo.Name = "btnMoveTo";
             this.btnMoveTo.Size = new System.Drawing.Size(75, 23);
             this.btnMoveTo.TabIndex = 8;
@@ -152,14 +153,14 @@
             // 
             // textBoxMoveToPosition
             // 
-            this.textBoxMoveToPosition.Location = new System.Drawing.Point(98, 106);
+            this.textBoxMoveToPosition.Location = new System.Drawing.Point(98, 131);
             this.textBoxMoveToPosition.Name = "textBoxMoveToPosition";
             this.textBoxMoveToPosition.Size = new System.Drawing.Size(138, 20);
             this.textBoxMoveToPosition.TabIndex = 9;
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(17, 133);
+            this.btnReset.Location = new System.Drawing.Point(17, 158);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 10;
@@ -171,7 +172,7 @@
             // 
             this.lblAction.AutoSize = true;
             this.lblAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAction.Location = new System.Drawing.Point(101, 138);
+            this.lblAction.Location = new System.Drawing.Point(101, 163);
             this.lblAction.Name = "lblAction";
             this.lblAction.Size = new System.Drawing.Size(65, 13);
             this.lblAction.TabIndex = 11;
@@ -185,7 +186,7 @@
             this.groupBox1.Controls.Add(this.numericUpDown4);
             this.groupBox1.Controls.Add(this.numericUpDown3);
             this.groupBox1.Controls.Add(this.numericUpDown2);
-            this.groupBox1.Location = new System.Drawing.Point(17, 162);
+            this.groupBox1.Location = new System.Drawing.Point(17, 187);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(235, 102);
             this.groupBox1.TabIndex = 12;
@@ -318,11 +319,22 @@
             this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(93, 77);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(65, 23);
+            this.btnStop.TabIndex = 17;
+            this.btnStop.Text = "STOP";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(267, 273);
+            this.ClientSize = new System.Drawing.Size(267, 298);
+            this.Controls.Add(this.btnStop);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtBoxHumidity);
@@ -378,5 +390,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnStop;
     }
 }

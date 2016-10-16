@@ -174,6 +174,7 @@ void serialCommand(String commandString){
       break;
     case 'X' :  // GET STATUS - may not be needed
     case 'x' :
+              stepper1.stop();
       break;
     case 'Z' :  // IDENTIFY
     case 'z' :  _answer += "EQFOCUSER";
@@ -187,7 +188,9 @@ void serialCommand(String commandString){
     Serial.print("MOVING:");
     Serial.print(_newPosition);
     Serial.println("#");
-    stepper1.runToNewPosition(_newPosition);  // this will block the execution
+//    stepper1.runToNewPosition(_newPosition);  // this will block the execution
+    stepper1.moveTo(_newPosition);
+    stepper1.runSpeedToPosition();
     _answer += "POSITION:";
     _answer += _newPosition;
   }

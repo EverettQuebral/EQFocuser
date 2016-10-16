@@ -91,7 +91,7 @@ namespace ASCOM.EQFocuser
                 testPort.Open();
                 testPort.WriteLine("Z");    // command to get the name of the device
 
-                Thread.Sleep(1000);
+                Thread.Sleep(50);
                 string returnMessage = testPort.ReadExisting().ToString();
                 testPort.Close();
                 Debug.WriteLine(returnMessage);
