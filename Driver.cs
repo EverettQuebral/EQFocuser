@@ -104,7 +104,11 @@ namespace ASCOM.EQFocuser
         /// <summary>
         /// Private variable that hold the value whether the focuser is moving or not
         /// </summary>
-        private bool isMoving;
+        private bool isMoving = false;
+
+        private double temperature;
+
+        private double humidity;
 
         /// <summary>
         /// Private variable that hold the reference to the Main Window
@@ -144,6 +148,8 @@ namespace ASCOM.EQFocuser
         //
         // PUBLIC COM INTERFACE IFocuserV2 IMPLEMENTATION
         //
+
+        #region Event Handling
         public virtual void OnFocuserValueChanged(FocuserValueChangedEventArgs e)
         {
             if (FocuserValueChanged != null)
@@ -175,6 +181,7 @@ namespace ASCOM.EQFocuser
                 FocuserHumidityChanged(this, e);
             }
         }
+        #endregion
 
         #region Common properties and methods.
 
@@ -259,7 +266,6 @@ namespace ASCOM.EQFocuser
             tl.LogMessage("command ", message);
 
             System.Diagnostics.Debug.WriteLine("messaage from arduino " + message);
-            this.isMoving = true;
             return message;
         }
 
@@ -284,27 +290,29 @@ namespace ASCOM.EQFocuser
 
             if (message.Contains("POSITION")){
                 focuserPosition = Convert.ToInt16(message.Split(':')[1]);
-                isMoving = false;
                 OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
                 OnFocuserStateChanged(new FocuserStateChangedEventArgs(false));
+                this.isMoving = false;
             }
 
             if (message.Contains("MOVING"))
             {
                 OnFocuserStateChanged(new FocuserStateChangedEventArgs(true));
-                isMoving = true;
+                this.isMoving = true;
             }
 
             if (message.Contains("TEMPERATURE"))
             {
+                this.temperature = Convert.ToDouble(message.Split(':')[1]);
                 OnFocuserTemperatureChanged(
-                    new FocuserTemperatureChangedEventArgs(message.Split(':')[1]));
+                    new FocuserTemperatureChangedEventArgs(message.Split(':')[1] + " °C"));
             }
 
             if (message.Contains("HUMIDITY"))
             {
+                this.humidity = Convert.ToDouble(message.Split(':')[1]);
                 OnFocuserHumidityChanged(
-                    new FocuserHumidityChangedEventArgs(message.Split(':')[1]));
+                    new FocuserHumidityChangedEventArgs(message.Split(':')[1] + "%"));
             }
         }
 
@@ -348,9 +356,14 @@ namespace ASCOM.EQFocuser
                     serialPort = new SerialPort(comPort, 115200);
                     serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
                     serialPort.Open();
-                    this.CommandString("F", true); // async
-                    this.isMoving = false;
-                    this.CommandString("k", true); // temperature and humidity
+                    Action("F", "");    // GET POSITION
+                    Action("k", "");    // GET TEMPERATURE AND HUMIDITY
+
+                    // when we establish connection, set up the increment, step and speed
+                    Action("I", "100"); // SET SPEED
+                    Action("J", "200"); // SET MAXSPEED
+                    Action("H", "200"); // SET ACCELERATION
+
                 }
                 else
                 {
@@ -445,8 +458,8 @@ namespace ASCOM.EQFocuser
 
         public void Halt()
         {
-            tl.LogMessage("Halt", "Not implemented");
-            throw new ASCOM.MethodNotImplementedException("Halt");
+            tl.LogMessage("Halt", "Called");
+            SerialPort.WriteLine("X");
         }
 
         public bool IsMoving
@@ -496,10 +509,7 @@ namespace ASCOM.EQFocuser
         public void Move(int Position)
         {
             tl.LogMessage("Move", Position.ToString());
-            serialPort.WriteLine("E:" + Position);
-            isMoving = true;
-
-            focuserPosition = Position; // Set the focuser position
+            Action("E", Position.ToString());
         }
 
         public int Position
@@ -541,7 +551,7 @@ namespace ASCOM.EQFocuser
             get
             {
                 tl.LogMessage("TempCompAvailable Get", false.ToString());
-                return false; // Temperature compensation is not available in this driver
+                return true; // Temperature compensation is not available in this driver
             }
         }
 
@@ -550,7 +560,7 @@ namespace ASCOM.EQFocuser
             get
             {
                 tl.LogMessage("Temperature Get", "Not implemented");
-                throw new ASCOM.PropertyNotImplementedException("Temperature", false);
+                return temperature;
             }
         }
 

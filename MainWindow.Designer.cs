@@ -102,11 +102,6 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
             this.numericUpDown1.Location = new System.Drawing.Point(93, 105);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             10000,
@@ -139,6 +134,7 @@
             this.textBoxCurrentPosition.ReadOnly = true;
             this.textBoxCurrentPosition.Size = new System.Drawing.Size(135, 20);
             this.textBoxCurrentPosition.TabIndex = 7;
+            this.textBoxCurrentPosition.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxCurrentPosition.TextChanged += new System.EventHandler(this.textBoxCurrentPosition_TextChanged);
             // 
             // btnMoveTo
@@ -223,6 +219,11 @@
             // numericUpDown4
             // 
             this.numericUpDown4.Location = new System.Drawing.Point(109, 73);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
             this.numericUpDown4.Minimum = new decimal(new int[] {
             10,
             0,
@@ -241,6 +242,11 @@
             // numericUpDown3
             // 
             this.numericUpDown3.Location = new System.Drawing.Point(109, 46);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
             this.numericUpDown3.Minimum = new decimal(new int[] {
             10,
             0,
@@ -250,7 +256,7 @@
             this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown3.TabIndex = 1;
             this.numericUpDown3.Value = new decimal(new int[] {
-            100,
+            200,
             0,
             0,
             0});
@@ -273,7 +279,7 @@
             this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown2.TabIndex = 0;
             this.numericUpDown2.Value = new decimal(new int[] {
-            100,
+            200,
             0,
             0,
             0});
