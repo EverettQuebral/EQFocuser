@@ -17,12 +17,42 @@ namespace ASCOM.EQFocuser
             this.focuser = focuser;
             this.focuser.FocuserValueChanged += FocuserValueChanged;
             this.focuser.FocuserStateChanged += FocuserStateChanged;
+            this.focuser.FocuserHumidityChanged += FocuserHumidityChanged;
+            this.focuser.FocuserTemperatureChanged += FocuserTemperatureChanged;
             InitializeComponent();
             InitControls();
         }
 
         delegate void SetCurrentPositionCallBack(int position);
         delegate void SetCurrentStateCallBack(bool isMoving);
+        delegate void SetCurrentTemperatureCallBack(string temperature);
+        delegate void SetCurrentHumidityCallBack(string humidity);
+
+        private void SetCurrentTemperature(string temperature)
+        {
+            if (txtBoxTemperature.InvokeRequired)
+            {
+                SetCurrentTemperatureCallBack d = new SetCurrentTemperatureCallBack(SetCurrentTemperature);
+                this.Invoke(d, new Object[] { temperature });
+            }
+            else
+            {
+                txtBoxTemperature.Text = temperature.ToString();
+            }
+        }
+
+        private void SetCurrentHumidity(string humidity)
+        {
+            if (txtBoxHumidity.InvokeRequired)
+            {
+                SetCurrentHumidityCallBack d = new SetCurrentHumidityCallBack(SetCurrentHumidity);
+                this.Invoke(d, new Object[] { humidity });
+            }
+            else
+            {
+                txtBoxHumidity.Text = humidity.ToString();
+            }
+        }
 
         private void SetCurrentPosition(int position)
         {
@@ -38,6 +68,7 @@ namespace ASCOM.EQFocuser
 
             if (!focuser.IsMoving) lblAction.Text = "READY...";
         }
+
         private void FocuserValueChanged(object sender, FocuserValueChangedEventArgs e)
         {
             //this.textBoxCurrentPosition.Text = e.NewValue.ToString();
@@ -64,6 +95,17 @@ namespace ASCOM.EQFocuser
                
             }
         }
+
+        private void FocuserHumidityChanged(object sender, FocuserHumidityChangedEventArgs e)
+        {
+            SetCurrentHumidity(e.Humidity);
+        }
+
+        private void FocuserTemperatureChanged(object sender, FocuserTemperatureChangedEventArgs e)
+        {
+            SetCurrentTemperature(e.Temperature);
+        }
+
         private void FocuserStateChanged(object sender, FocuserStateChangedEventArgs e)
         {
             SetCurrentState(e.IsMoving);
@@ -131,6 +173,15 @@ namespace ASCOM.EQFocuser
         {
             // speed
             focuser.Action("I", numericUpDown4.Value.ToString());
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // do not disrupt the motor when it is moving
+            if (!focuser.IsMoving) {
+                System.Diagnostics.Debug.WriteLine("Getting Temperature");
+                focuser.CommandString("k", true);
+            }
         }
     }
 }

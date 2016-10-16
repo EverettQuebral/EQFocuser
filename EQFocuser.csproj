@@ -78,6 +78,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FocuserHumidityChangedEventArgs.cs" />
+    <Compile Include="FocuserTemperatureChangedEventArgs.cs" />
     <Compile Include="FocuserStateChangedEventArgs.cs" />
     <Compile Include="FocuserValueChangedEventArgs.cs" />
     <Compile Include="Driver.cs" />

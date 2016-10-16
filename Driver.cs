@@ -115,6 +115,10 @@ namespace ASCOM.EQFocuser
 
         public event EventHandler<FocuserStateChangedEventArgs> FocuserStateChanged;
 
+        public event EventHandler<FocuserTemperatureChangedEventArgs> FocuserTemperatureChanged;
+
+        public event EventHandler<FocuserHumidityChangedEventArgs> FocuserHumidityChanged;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EQFocuser"/> class.
         /// Must be public for COM registration.
@@ -153,6 +157,22 @@ namespace ASCOM.EQFocuser
             if (FocuserStateChanged != null)
             {
                 FocuserStateChanged(this, e);
+            }
+        }
+
+        public virtual void OnFocuserTemperatureChanged(FocuserTemperatureChangedEventArgs e)
+        {
+            if (FocuserTemperatureChanged != null)
+            {
+                FocuserTemperatureChanged(this, e);
+            }
+        }
+
+        public virtual void OnFocuserHumidityChanged(FocuserHumidityChangedEventArgs e)
+        {
+            if (FocuserHumidityChanged != null)
+            {
+                FocuserHumidityChanged(this, e);
             }
         }
 
@@ -274,6 +294,18 @@ namespace ASCOM.EQFocuser
                 OnFocuserStateChanged(new FocuserStateChangedEventArgs(true));
                 isMoving = true;
             }
+
+            if (message.Contains("TEMPERATURE"))
+            {
+                OnFocuserTemperatureChanged(
+                    new FocuserTemperatureChangedEventArgs(message.Split(':')[1]));
+            }
+
+            if (message.Contains("HUMIDITY"))
+            {
+                OnFocuserHumidityChanged(
+                    new FocuserHumidityChangedEventArgs(message.Split(':')[1]));
+            }
         }
 
         public bool Connected
@@ -313,11 +345,12 @@ namespace ASCOM.EQFocuser
                     tl.LogMessage("Connected Set", "Connecting to port " + comPort);
 
                     // we need to know the current position
-                    serialPort = new SerialPort(comPort, 9600);
+                    serialPort = new SerialPort(comPort, 115200);
                     serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
                     serialPort.Open();
                     this.CommandString("F", true); // async
                     this.isMoving = false;
+                    this.CommandString("k", true); // temperature and humidity
                 }
                 else
                 {

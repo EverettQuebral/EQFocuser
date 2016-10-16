@@ -85,7 +85,7 @@ namespace ASCOM.EQFocuser
 
         private bool DetectArduino(string portName)
         {
-            SerialPort testPort = new SerialPort(portName, 9600);
+            SerialPort testPort = new SerialPort(portName, 115200);
             try
             {
                 testPort.Open();
