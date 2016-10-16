@@ -65,8 +65,6 @@ namespace ASCOM.EQFocuser
             {
                 textBoxCurrentPosition.Text = position.ToString();
             }
-
-            if (!focuser.IsMoving) lblAction.Text = "READY...";
         }
 
         private void FocuserValueChanged(object sender, FocuserValueChangedEventArgs e)
@@ -180,14 +178,13 @@ namespace ASCOM.EQFocuser
             // do not disrupt the motor when it is moving
             if (!focuser.IsMoving) {
                 System.Diagnostics.Debug.WriteLine("Getting Temperature");
-                focuser.CommandString("k", true);
+                focuser.Action("k", "");
             }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Stopping the motor");
-            focuser.CommandString("X", true);
             focuser.Halt();
         }
     }
