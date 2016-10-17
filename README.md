@@ -20,5 +20,9 @@ This is an open source project for controlling a stepper motor controlled by Ard
 ![Schematic Diagram](Resources/Schematic.png?raw=true "Schematic Diagram")
 
 ##### Screen Shot
+
+###### Setup Dialog
 ![Setup Dialog](Resources/SetupScreen.png?raw=true "Setup Dialog")
+
+###### Main Window controller
 ![Main Window](Resources/MainWindow.png?raw=true "Main Window")
