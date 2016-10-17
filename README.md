@@ -10,4 +10,13 @@
 This is an open source project for controlling a stepper motor controlled by Arduino
 
 
+#### Hardware
+
+
+##### Diagram
+
+![Component Diagram](Resources/Diagram.png?raw=true "Component Diagram")
+![Schematic Diagram](Resources/Schematic.png?raw=true "Schematic Diagram")
+
+
 
