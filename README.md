@@ -5,7 +5,7 @@ The EQ Focuser features a very simple interface and manual controller.  It doesn
 
 #### Description
 This is an open source project for controlling a stepper motor controlled by Arduino
-![Focuser in Action](https://www.youtube.com/watch?v=E4LpXYvdvyA "Focuser in Action")
+[![Focuser in Action](https://www.youtube.com/watch?v=E4LpXYvdvyA "Focuser in Action")]
 
 #### Hardware Parts
 - 1 Arduino
