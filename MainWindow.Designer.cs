@@ -53,6 +53,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnStop = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
@@ -102,7 +104,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(93, 105);
+            this.numericUpDown1.Location = new System.Drawing.Point(170, 104);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -121,7 +123,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 6);
+            this.label1.Location = new System.Drawing.Point(14, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 6;
@@ -129,7 +131,7 @@
             // 
             // textBoxCurrentPosition
             // 
-            this.textBoxCurrentPosition.Location = new System.Drawing.Point(101, 3);
+            this.textBoxCurrentPosition.Location = new System.Drawing.Point(102, 12);
             this.textBoxCurrentPosition.Name = "textBoxCurrentPosition";
             this.textBoxCurrentPosition.ReadOnly = true;
             this.textBoxCurrentPosition.Size = new System.Drawing.Size(135, 20);
@@ -139,7 +141,7 @@
             // 
             // btnMoveTo
             // 
-            this.btnMoveTo.Location = new System.Drawing.Point(17, 129);
+            this.btnMoveTo.Location = new System.Drawing.Point(18, 130);
             this.btnMoveTo.Name = "btnMoveTo";
             this.btnMoveTo.Size = new System.Drawing.Size(75, 23);
             this.btnMoveTo.TabIndex = 8;
@@ -149,18 +151,18 @@
             // 
             // textBoxMoveToPosition
             // 
-            this.textBoxMoveToPosition.Location = new System.Drawing.Point(98, 131);
+            this.textBoxMoveToPosition.Location = new System.Drawing.Point(99, 132);
             this.textBoxMoveToPosition.Name = "textBoxMoveToPosition";
             this.textBoxMoveToPosition.Size = new System.Drawing.Size(138, 20);
             this.textBoxMoveToPosition.TabIndex = 9;
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(17, 158);
+            this.btnReset.Location = new System.Drawing.Point(18, 159);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.Size = new System.Drawing.Size(158, 23);
             this.btnReset.TabIndex = 10;
-            this.btnReset.Text = "Reset to 0";
+            this.btnReset.Text = "Reset to Position to 0";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
@@ -168,7 +170,7 @@
             // 
             this.lblAction.AutoSize = true;
             this.lblAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAction.Location = new System.Drawing.Point(101, 163);
+            this.lblAction.Location = new System.Drawing.Point(182, 164);
             this.lblAction.Name = "lblAction";
             this.lblAction.Size = new System.Drawing.Size(65, 13);
             this.lblAction.TabIndex = 11;
@@ -182,7 +184,7 @@
             this.groupBox1.Controls.Add(this.numericUpDown4);
             this.groupBox1.Controls.Add(this.numericUpDown3);
             this.groupBox1.Controls.Add(this.numericUpDown2);
-            this.groupBox1.Location = new System.Drawing.Point(17, 187);
+            this.groupBox1.Location = new System.Drawing.Point(18, 188);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(235, 102);
             this.groupBox1.TabIndex = 12;
@@ -256,7 +258,7 @@
             this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown3.TabIndex = 1;
             this.numericUpDown3.Value = new decimal(new int[] {
-            200,
+            100,
             0,
             0,
             0});
@@ -279,7 +281,7 @@
             this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown2.TabIndex = 0;
             this.numericUpDown2.Value = new decimal(new int[] {
-            200,
+            100,
             0,
             0,
             0});
@@ -335,11 +337,32 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 106);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(133, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Single Step (x2 for Double)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(124, 295);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(135, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "EQ ASCOM Focuser Driver";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(267, 298);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(263, 317);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -397,5 +420,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
