@@ -224,7 +224,7 @@ namespace ASCOM.EQFocuser
             if (IsConnected)
             {
                 serialPort.WriteLine(actionName + ":" + actionParameters);
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(10);
             }
             return "";
         }
@@ -258,7 +258,7 @@ namespace ASCOM.EQFocuser
             if (IsConnected)
             {
                 serialPort.WriteLine(command + ":" + stepSize);
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(10);
             }
 
             string message = "sent " + command + ":" + stepSize;
@@ -279,6 +279,7 @@ namespace ASCOM.EQFocuser
             utilities = null;
             astroUtilities.Dispose();
             astroUtilities = null;
+            serialPort.Close();
         }
 
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -353,24 +354,31 @@ namespace ASCOM.EQFocuser
                     tl.LogMessage("Connected Set", "Connecting to port " + comPort);
 
                     // we need to know the current position
-                    serialPort = new SerialPort(comPort, 115200);
-                    serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
-                    serialPort.Open();
-                    Action("F", "");    // GET POSITION
-                    Action("k", "");    // GET TEMPERATURE AND HUMIDITY
+                    try
+                    {
+                        serialPort = new SerialPort(comPort, 115200);
+                        serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
+                        serialPort.Open();
+                        Action("F", "");    // GET POSITION
+                        Action("k", "");    // GET TEMPERATURE AND HUMIDITY
 
-                    // when we establish connection, set up the increment, step and speed
-                    Action("I", "100"); // SET SPEED
-                    Action("J", "200"); // SET MAXSPEED
-                    Action("H", "200"); // SET ACCELERATION
+                        // when we establish connection, set up the increment, step and speed
+                        Action("I", "100"); // SET SPEED
+                        Action("J", "200"); // SET MAXSPEED
+                        Action("H", "200"); // SET ACCELERATION
+                    }
+                    catch (Exception e)
+                    {
+
+                        connectedState = false;
+                        tl.LogMessage("Cannot Open Serial Port", comPort);
+                    }
 
                 }
                 else
                 {
                     connectedState = false;
                     tl.LogMessage("Connected Set", "Disconnecting from port " + comPort);
-
-                    serialPort.Close();
                     if (showUI)
                     {
                         mainWindow.Close();
