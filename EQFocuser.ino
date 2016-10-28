@@ -41,11 +41,13 @@ dht DHT;
 int chkSensor;
 
 void setup() {
+	Serial.begin(115200);
+	Serial.println("EQFOCUSER#");
+
 	stepper1.setMaxSpeed(100.0);
 	stepper1.setAcceleration(100.0);
 	stepper1.setSpeed(100);
 
-	Serial.begin(115200);
 	inputString.reserve(200);
 
 	pinMode(ccwPin, INPUT_PULLUP);
@@ -123,7 +125,7 @@ void serialCommand(String commandString) {
 
 	switch (_command) {
 	case 'A':  // FAST REVERSE "<<"
-	case 'a': _newPosition = _currentPosition - _step;
+	case 'a': _newPosition = _currentPosition - (_step * 2);
 		break;
 	case 'B':  // REVERSE "<"
 	case 'b': _newPosition = _currentPosition - _step;
@@ -132,7 +134,7 @@ void serialCommand(String commandString) {
 	case 'c': _newPosition = _currentPosition + _step;
 		break;
 	case 'D':  // FAST FORWARD ">>"
-	case 'd': _newPosition = _currentPosition + _step;
+	case 'd': _newPosition = _currentPosition + (_step * 2);
 		break;
 	case 'E':  // MOVE TO POSITION
 	case 'e': _newPosition = _step;
@@ -180,6 +182,7 @@ void serialCommand(String commandString) {
 	case 'z':  _answer += "EQFOCUSER";
 		break;
 	default:
+		_answer += "EQFOCUSER";
 		break;
 	}
 

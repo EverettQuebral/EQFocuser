@@ -224,7 +224,7 @@ namespace ASCOM.EQFocuser
             if (IsConnected)
             {
                 serialPort.WriteLine(actionName + ":" + actionParameters);
-                System.Threading.Thread.Sleep(100);
+                //System.Threading.Thread.Sleep(10);
             }
             return "";
         }
@@ -258,7 +258,7 @@ namespace ASCOM.EQFocuser
             if (IsConnected)
             {
                 serialPort.WriteLine(command + ":" + stepSize);
-                System.Threading.Thread.Sleep(100);
+                //System.Threading.Thread.Sleep(10);
             }
 
             string message = "sent " + command + ":" + stepSize;
@@ -279,41 +279,51 @@ namespace ASCOM.EQFocuser
             utilities = null;
             astroUtilities.Dispose();
             astroUtilities = null;
+            serialPort.Close();
         }
 
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            message = SerialPort.ReadTo("#");
-            System.Diagnostics.Debug.WriteLine(message);
-            existingMessage = SerialPort.ReadExisting();
-            System.Diagnostics.Debug.WriteLine("Existing" + existingMessage);
-
-            if (message.Contains("POSITION")){
-                focuserPosition = Convert.ToInt16(message.Split(':')[1]);
-                OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
-                OnFocuserStateChanged(new FocuserStateChangedEventArgs(false));
-                this.isMoving = false;
-            }
-
-            if (message.Contains("MOVING"))
+            try
             {
-                OnFocuserStateChanged(new FocuserStateChangedEventArgs(true));
-                this.isMoving = true;
+                message = SerialPort.ReadTo("#");
+                System.Diagnostics.Debug.WriteLine(message);
+                existingMessage = SerialPort.ReadExisting();
+                System.Diagnostics.Debug.WriteLine("Existing" + existingMessage);
+
+                if (message.Contains("POSITION"))
+                {
+                    focuserPosition = Convert.ToInt16(message.Split(':')[1]);
+                    OnFocuserValueChanged(new FocuserValueChangedEventArgs(focuserPosition, focuserPosition));
+                    OnFocuserStateChanged(new FocuserStateChangedEventArgs(false));
+                    this.isMoving = false;
+                }
+
+                if (message.Contains("MOVING"))
+                {
+                    OnFocuserStateChanged(new FocuserStateChangedEventArgs(true));
+                    this.isMoving = true;
+                }
+
+                if (message.Contains("TEMPERATURE"))
+                {
+                    this.temperature = Convert.ToDouble(message.Split(':')[1]);
+                    OnFocuserTemperatureChanged(
+                        new FocuserTemperatureChangedEventArgs(message.Split(':')[1] + " °C"));
+                }
+
+                if (message.Contains("HUMIDITY"))
+                {
+                    this.humidity = Convert.ToDouble(message.Split(':')[1]);
+                    OnFocuserHumidityChanged(
+                        new FocuserHumidityChangedEventArgs(message.Split(':')[1] + "%"));
+                }
+            }
+            catch (Exception ex)
+            {
+                tl.LogMessage("Encountered an Exeption", ex.Message);
             }
 
-            if (message.Contains("TEMPERATURE"))
-            {
-                this.temperature = Convert.ToDouble(message.Split(':')[1]);
-                OnFocuserTemperatureChanged(
-                    new FocuserTemperatureChangedEventArgs(message.Split(':')[1] + " °C"));
-            }
-
-            if (message.Contains("HUMIDITY"))
-            {
-                this.humidity = Convert.ToDouble(message.Split(':')[1]);
-                OnFocuserHumidityChanged(
-                    new FocuserHumidityChangedEventArgs(message.Split(':')[1] + "%"));
-            }
         }
 
         public bool Connected
@@ -342,38 +352,52 @@ namespace ASCOM.EQFocuser
                     
                 if (value)
                 {
-                    // Show the Window for the EQFocuser here
-                    if (showUI)
-                    {
-                        mainWindow = new MainWindow(this);
-                        mainWindow.Show();
-                    }
-
+                    
                     connectedState = true;
                     tl.LogMessage("Connected Set", "Connecting to port " + comPort);
+                     try
+                    {
+                        serialPort = new SerialPort(comPort, 115200);
+                        serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
+                        serialPort.Open();
+                        Action("F", "");    // GET POSITION
+                        Action("k", "");    // GET TEMPERATURE AND HUMIDITY
 
-                    // we need to know the current position
-                    serialPort = new SerialPort(comPort, 115200);
-                    serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
-                    serialPort.Open();
-                    Action("F", "");    // GET POSITION
-                    Action("k", "");    // GET TEMPERATURE AND HUMIDITY
+                        // when we establish connection, set up the increment, step and speed
+                        Action("I", "100"); // SET SPEED
+                        Action("J", "200"); // SET MAXSPEED
+                        Action("H", "200"); // SET ACCELERATION
 
-                    // when we establish connection, set up the increment, step and speed
-                    Action("I", "100"); // SET SPEED
-                    Action("J", "200"); // SET MAXSPEED
-                    Action("H", "200"); // SET ACCELERATION
+                        // Show the Window for the EQFocuser here
+                        if (showUI)
+                        {
+                            mainWindow = new MainWindow(this);
+                            mainWindow.Show();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                        connectedState = false;
+                        tl.LogMessage("Cannot Open Serial Port", comPort);
+                        if (serialPort.IsOpen)
+                        {
+                            serialPort.Close();
+                        }
+                    }
 
                 }
                 else
                 {
                     connectedState = false;
                     tl.LogMessage("Connected Set", "Disconnecting from port " + comPort);
-
-                    serialPort.Close();
                     if (showUI)
                     {
                         mainWindow.Close();
+                    }
+                    if (serialPort.IsOpen)
+                    {
+                        serialPort.Close();
                     }
                 }
             }

@@ -66,7 +66,7 @@ namespace ASCOM.EQFocuser
             foreach(string port in ports)
             {
                 Debug.WriteLine("Port here: " + port);
-                if (DetectArduino(port))
+                if (DetectEQFocuser(port))
                 {
                     comboBoxComPort.Items.Add(port);
                 }
@@ -83,7 +83,7 @@ namespace ASCOM.EQFocuser
             
         }
 
-        private bool DetectArduino(string portName)
+        private bool DetectEQFocuser(string portName)
         {
             SerialPort testPort = new SerialPort(portName, 115200);
             try
@@ -91,12 +91,13 @@ namespace ASCOM.EQFocuser
                 testPort.Open();
                 testPort.WriteLine("Z");    // command to get the name of the device
 
-                Thread.Sleep(100);
+                Thread.Sleep(10);
                 string returnMessage = testPort.ReadExisting().ToString();
+
                 testPort.Close();
                 Debug.WriteLine(returnMessage);
 
-                if (returnMessage.Contains("EQFOCUSER"))
+                if (returnMessage.Contains("EQFOCUSER") || returnMessage.Contains("POSITION"))
                 {
                     return true;
                 }
@@ -107,6 +108,7 @@ namespace ASCOM.EQFocuser
             }
             catch( Exception e)
             {
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
