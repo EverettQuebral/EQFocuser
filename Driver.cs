@@ -352,18 +352,10 @@ namespace ASCOM.EQFocuser
                     
                 if (value)
                 {
-                    // Show the Window for the EQFocuser here
-                    if (showUI)
-                    {
-                        mainWindow = new MainWindow(this);
-                        mainWindow.Show();
-                    }
-
+                    
                     connectedState = true;
                     tl.LogMessage("Connected Set", "Connecting to port " + comPort);
-
-                    // we need to know the current position
-                    try
+                     try
                     {
                         serialPort = new SerialPort(comPort, 115200);
                         serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
@@ -375,6 +367,13 @@ namespace ASCOM.EQFocuser
                         Action("I", "100"); // SET SPEED
                         Action("J", "200"); // SET MAXSPEED
                         Action("H", "200"); // SET ACCELERATION
+
+                        // Show the Window for the EQFocuser here
+                        if (showUI)
+                        {
+                            mainWindow = new MainWindow(this);
+                            mainWindow.Show();
+                        }
                     }
                     catch (Exception e)
                     {

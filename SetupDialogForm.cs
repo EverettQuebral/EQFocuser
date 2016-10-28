@@ -93,10 +93,11 @@ namespace ASCOM.EQFocuser
 
                 Thread.Sleep(10);
                 string returnMessage = testPort.ReadExisting().ToString();
+
                 testPort.Close();
                 Debug.WriteLine(returnMessage);
 
-                if (returnMessage.Contains("EQFOCUSER"))
+                if (returnMessage.Contains("EQFOCUSER") || returnMessage.Contains("POSITION"))
                 {
                     return true;
                 }
@@ -107,6 +108,7 @@ namespace ASCOM.EQFocuser
             }
             catch( Exception e)
             {
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }

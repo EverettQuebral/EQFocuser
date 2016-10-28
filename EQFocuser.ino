@@ -46,6 +46,7 @@ void setup() {
 	stepper1.setSpeed(100);
 
 	Serial.begin(115200);
+	Serial.println("EQFOCUSER#");
 	inputString.reserve(200);
 
 	pinMode(ccwPin, INPUT_PULLUP);
