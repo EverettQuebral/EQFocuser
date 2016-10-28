@@ -41,12 +41,13 @@ dht DHT;
 int chkSensor;
 
 void setup() {
+	Serial.begin(115200);
+	Serial.println("EQFOCUSER#");
+
 	stepper1.setMaxSpeed(100.0);
 	stepper1.setAcceleration(100.0);
 	stepper1.setSpeed(100);
 
-	Serial.begin(115200);
-	Serial.println("EQFOCUSER#");
 	inputString.reserve(200);
 
 	pinMode(ccwPin, INPUT_PULLUP);
@@ -181,6 +182,7 @@ void serialCommand(String commandString) {
 	case 'z':  _answer += "EQFOCUSER";
 		break;
 	default:
+		_answer += "EQFOCUSER";
 		break;
 	}
 
