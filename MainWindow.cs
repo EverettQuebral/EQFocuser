@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace ASCOM.EQFocuser
 {
     public partial class MainWindow : Form
@@ -30,41 +31,18 @@ namespace ASCOM.EQFocuser
 
         private void SetCurrentTemperature(string temperature)
         {
-            if (txtBoxTemperature.InvokeRequired)
-            {
-                SetCurrentTemperatureCallBack d = new SetCurrentTemperatureCallBack(SetCurrentTemperature);
-                this.Invoke(d, new Object[] { temperature });
-            }
-            else
-            {
-                txtBoxTemperature.Text = temperature.ToString();
-            }
+            txtBoxTemperature.InvokeIfRequired(txtBoxTemperature => { txtBoxTemperature.Text = temperature; });
         }
 
         private void SetCurrentHumidity(string humidity)
         {
-            if (txtBoxHumidity.InvokeRequired)
-            {
-                SetCurrentHumidityCallBack d = new SetCurrentHumidityCallBack(SetCurrentHumidity);
-                this.Invoke(d, new Object[] { humidity });
-            }
-            else
-            {
-                txtBoxHumidity.Text = humidity.ToString();
-            }
+
+            txtBoxHumidity.InvokeIfRequired(txtBoxHumidity => { txtBoxHumidity.Text = humidity; });
         }
 
         private void SetCurrentPosition(int position)
         {
-            if (textBoxCurrentPosition.InvokeRequired)
-            {
-                SetCurrentPositionCallBack d = new SetCurrentPositionCallBack(SetCurrentPosition);
-                this.Invoke(d, new object[] { position });
-            }
-            else
-            {
-                textBoxCurrentPosition.Text = position.ToString();
-            }
+            textBoxCurrentPosition.InvokeIfRequired(textBoxCurrentPosition => { textBoxCurrentPosition.Text = position.ToString(); });
         }
 
         private void FocuserValueChanged(object sender, FocuserValueChangedEventArgs e)
