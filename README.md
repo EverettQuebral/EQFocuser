@@ -4,7 +4,7 @@ An Absolute ASCOM Driver for EQ Focuser.  The Focuser can be controlled manually
 The EQ Focuser features a very simple interface and manual controller.  It doesn't need to be attached to a computer for manual operation.  For ASCOM Driver operation, it needs to be connected to a USB port.
 
 #### Travis
-https://travis-ci.org/EverettQuebral/EQFocuser
+<img src="https://travis-ci.org/EverettQuebral/EQFocuser.png"/> https://travis-ci.org/EverettQuebral/EQFocuser
 
 #### Description
 This is an open source project for controlling a stepper motor controlled by Arduino
