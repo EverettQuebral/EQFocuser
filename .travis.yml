@@ -1,1 +1,3 @@
 language: csharp
+install: false
+os: windows
