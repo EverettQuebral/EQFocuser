@@ -5,6 +5,7 @@ The EQ Focuser features a very simple interface and manual controller.  It doesn
 
 #### Travis
 <img src="https://travis-ci.org/EverettQuebral/EQFocuser.png"/> https://travis-ci.org/EverettQuebral/EQFocuser
+Unfortunately, Travis can only test and build on a Mono in a Linux Environment, the test is failing as of this moment
 
 #### Description
 This is an open source project for controlling a stepper motor controlled by Arduino
