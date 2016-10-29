@@ -3,6 +3,8 @@
 An Absolute ASCOM Driver for EQ Focuser.  The Focuser can be controlled manually or by using ASCOM that Astronomoical Applications use for observation or taking astrophotography.
 The EQ Focuser features a very simple interface and manual controller.  It doesn't need to be attached to a computer for manual operation.  For ASCOM Driver operation, it needs to be connected to a USB port.
 
+#### Travis
+
 #### Description
 This is an open source project for controlling a stepper motor controlled by Arduino
 [![Focuser in Action](http://www.youtube.com/watch?v=E4LpXYvdvyA/0.jpg)](https://www.youtube.com/watch?v=E4LpXYvdvyA "Focuser in Action")
