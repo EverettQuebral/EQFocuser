@@ -14,8 +14,8 @@
 // Date			Who	             Vers	Description
 // -----------	---------------- -----	-------------------------------------------------------
 // 02-oct-2016	Everett Quebral	 6.0.0	Initial edit, created from ASCOM driver template
-// --------------------------------------------------------------------------------
-//
+// --------------------------------------------------------------------------------------------
+// 24-dec-2016  Everett Quebral  6.0.1  Added support of Temperature, More error checking, full compatibility with absolute focusers
 
 
 // This is used to define code in the template that is specific to one class implementation
@@ -224,7 +224,6 @@ namespace ASCOM.EQFocuser
             if (IsConnected)
             {
                 serialPort.WriteLine(actionName + ":" + actionParameters);
-                //System.Threading.Thread.Sleep(10);
             }
             return "";
         }
@@ -352,7 +351,6 @@ namespace ASCOM.EQFocuser
                     
                 if (value)
                 {
-                    
                     connectedState = true;
                     tl.LogMessage("Connected Set", "Connecting to port " + comPort);
                      try
@@ -714,9 +712,16 @@ namespace ASCOM.EQFocuser
             using (Profile driverProfile = new Profile())
             {
                 driverProfile.DeviceType = "Focuser";
-                driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString());
-                driverProfile.WriteValue(driverID, comPortProfileName, comPort.ToString());
-                driverProfile.WriteValue(driverID, showUIProfileName, showUI.ToString());
+                try
+                {
+                    driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString());
+                    driverProfile.WriteValue(driverID, comPortProfileName, comPort.ToString());
+                    driverProfile.WriteValue(driverID, showUIProfileName, showUI.ToString());
+                }
+                catch(Exception ex)
+                {
+                    tl.LogMessage("Cannot write to driveProfile", ex.Message);
+                }
             }
         }
 

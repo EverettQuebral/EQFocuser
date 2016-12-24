@@ -59,6 +59,8 @@ namespace ASCOM.EQFocuser
         private void InitUI()
         {
             chkTrace.Checked = Focuser.traceState;
+            showUI.Checked = Focuser.showUI;
+
             // set the list of com ports to those that are currently available
             comboBoxComPort.Items.Clear();
 
@@ -91,7 +93,7 @@ namespace ASCOM.EQFocuser
                 testPort.Open();
                 testPort.WriteLine("Z");    // command to get the name of the device
 
-                Thread.Sleep(10);
+                Thread.Sleep(100);
                 string returnMessage = testPort.ReadExisting().ToString();
 
                 testPort.Close();
@@ -111,11 +113,6 @@ namespace ASCOM.EQFocuser
                 Debug.WriteLine(e.Message);
                 return false;
             }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
