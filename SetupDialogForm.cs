@@ -99,8 +99,16 @@ namespace ASCOM.EQFocuser
                 testPort.Close();
                 Debug.WriteLine(returnMessage);
 
-                if (returnMessage.Contains("EQFOCUSER") || returnMessage.Contains("POSITION"))
+                if (returnMessage.Contains("EQFOCUSER_STEPPER") || returnMessage.Contains("POSITION"))
                 {
+                    Focuser.motorDriver = Focuser.stepperMotor;
+                    lblMotorDriver.Text = lblMotorDriver.Text + " STEPPER";
+                    return true;
+                }
+                else if (returnMessage.Contains("EQFOCUSER_SERVO"))
+                {
+                    Focuser.motorDriver = Focuser.servoMotor;
+                    lblMotorDriver.Text = lblMotorDriver.Text + " SERVO";
                     return true;
                 }
                 else
@@ -113,6 +121,26 @@ namespace ASCOM.EQFocuser
                 Debug.WriteLine(e.Message);
                 return false;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxComPort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

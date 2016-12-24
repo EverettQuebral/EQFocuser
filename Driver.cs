@@ -16,6 +16,7 @@
 // 02-oct-2016	Everett Quebral	 6.0.0	Initial edit, created from ASCOM driver template
 // --------------------------------------------------------------------------------------------
 // 24-dec-2016  Everett Quebral  6.0.1  Added support of Temperature, More error checking, full compatibility with absolute focusers
+//                                      support for servo
 
 
 // This is used to define code in the template that is specific to one class implementation
@@ -70,10 +71,13 @@ namespace ASCOM.EQFocuser
         internal static string traceStateProfileName = "Trace Level";
         internal static string traceStateDefault = "false";
         internal static string showUIDefault = "true";
+        internal static string stepperMotor = "stepper";
+        internal static string servoMotor = "servo";
 
         internal static string comPort; // Variables to hold the currrent device configuration
         internal static bool traceState;
         internal static bool showUI;
+        internal static string motorDriver;
         
 
         /// <summary>
@@ -346,6 +350,7 @@ namespace ASCOM.EQFocuser
                         mainWindow = new MainWindow(this);
                         mainWindow.Show();
                     }
+                    connectedState = true;
                     return;
                 }
                     
@@ -583,6 +588,18 @@ namespace ASCOM.EQFocuser
             {
                 tl.LogMessage("Temperature Get", "Not implemented");
                 return temperature;
+            }
+        }
+
+        public string MotorDriver
+        {
+            get
+            {
+                return motorDriver;
+            }
+            set
+            {
+                motorDriver = value;
             }
         }
 
