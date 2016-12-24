@@ -22,6 +22,7 @@ namespace ASCOM.EQFocuser
             this.focuser.FocuserTemperatureChanged += FocuserTemperatureChanged;
             InitializeComponent();
             InitControls();
+
         }
 
         delegate void SetCurrentPositionCallBack(int position);
@@ -166,5 +167,14 @@ namespace ASCOM.EQFocuser
             focuser.Halt();
         }
 
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Showing Main Window");
+        }
+
+        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //focuser.SerialPort.Close();
+        }
     }
 }

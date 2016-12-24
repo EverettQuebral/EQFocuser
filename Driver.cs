@@ -83,7 +83,7 @@ namespace ASCOM.EQFocuser
         /// <summary>
         /// Private variable to hold the connected state
         /// </summary>
-        private bool connectedState;
+        private bool connectedState = false;
 
         /// <summary>
         /// Private variable to hold an ASCOM Utilities object
@@ -139,7 +139,7 @@ namespace ASCOM.EQFocuser
             tl.Enabled = traceState;
             tl.LogMessage("Focuser", "Starting initialisation");
 
-            connectedState = false; // Initialise connected to false
+            //connectedState = false; // Initialise connected to false
             utilities = new Util(); //Initialise util object
             
             astroUtilities = new AstroUtils(); // Initialise astro utilities object
@@ -199,12 +199,15 @@ namespace ASCOM.EQFocuser
         {
             // consider only showing the setup dialog if not connected
             // or call a different dialog if connected
-            if (IsConnected)
+
+            if (connectedState)
+            {
                 System.Windows.Forms.MessageBox.Show("Already connected, just press OK");
+                return;
+            }
 
             using (SetupDialogForm F = new SetupDialogForm(this.DriverInfo))
             {
-               
                 var result = F.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
@@ -362,7 +365,10 @@ namespace ASCOM.EQFocuser
                     {
                         serialPort = new SerialPort(comPort, 115200);
                         serialPort.DataReceived += new SerialDataReceivedEventHandler(this.serialPort_DataReceived);
-                        serialPort.Open();
+                        if (!serialPort.IsOpen)
+                        {
+                            serialPort.Open();
+                        }
                         Action("F", "");    // GET POSITION
                         Action("k", "");    // GET TEMPERATURE AND HUMIDITY
 
@@ -376,6 +382,7 @@ namespace ASCOM.EQFocuser
                         {
                             mainWindow = new MainWindow(this);
                             mainWindow.Show();
+                            System.Diagnostics.Debug.WriteLine("Connected " + IsConnected.ToString());
                         }
                     }
                     catch (Exception e)

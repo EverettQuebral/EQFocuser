@@ -123,6 +123,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="EQFocuserStepper.ino" />
     <None Include="app.config" />
     <None Include="ASCOM.png" />
@@ -132,6 +133,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="ASCOM.ico" />
+    <Content Include="InnoSetup.txt" />
     <Content Include="license.txt" />
     <Content Include="ReadMe.htm" />
     <None Include="README.md" />
