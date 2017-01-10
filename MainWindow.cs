@@ -176,5 +176,10 @@ namespace ASCOM.EQFocuser
         {
             //focuser.SerialPort.Close();
         }
+
+        private void numericUpDownBacklash_ValueChanged(object sender, EventArgs e)
+        {
+            focuser.Action("L", numericUpDownBacklash.Value.ToString());
+        }
     }
 }
