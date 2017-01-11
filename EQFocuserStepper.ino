@@ -246,18 +246,6 @@ void serialCommand(String commandString) {
     //    stepper1.runToNewPosition(_newPosition);  // this will block the execution
     stepper1.moveTo(_newPosition);
     stepper1.runSpeedToPosition();
-    
-    if (stepper1.distanceToGo() == 0){
-      if (currentDirection == "OUTWARD") {
-        Serial.print("CURREN TDIRECTION OUTWARD");
-        stepper1.setCurrentPosition(_newPosition - _backlashStep);
-      }
-      if (currentDirection == "INWARD") {
-        Serial.print("CURRENT DIRECTION INWARD");
-        stepper1.setCurrentPosition(_newPosition + _backlashStep);
-      }
-    }
-    
     lastDirection = currentDirection;
     _answer += "POSITION:";
     _answer += stepper1.currentPosition();
