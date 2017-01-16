@@ -41,6 +41,8 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.lblAction = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericUpDownBacklash = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,14 +57,15 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownBacklash = new System.Windows.Forms.NumericUpDown();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnShowAdvanced = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBacklash)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBacklash)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnFastReverse
@@ -116,6 +119,7 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(66, 20);
             this.numericUpDown1.TabIndex = 5;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown1.Value = new decimal(new int[] {
             500,
             0,
@@ -158,12 +162,13 @@
             this.textBoxMoveToPosition.Name = "textBoxMoveToPosition";
             this.textBoxMoveToPosition.Size = new System.Drawing.Size(138, 20);
             this.textBoxMoveToPosition.TabIndex = 9;
+            this.textBoxMoveToPosition.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btnReset
             // 
             this.btnReset.Location = new System.Drawing.Point(18, 159);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(158, 23);
+            this.btnReset.Size = new System.Drawing.Size(130, 23);
             this.btnReset.TabIndex = 10;
             this.btnReset.Text = "Reset to Position to 0";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -173,7 +178,7 @@
             // 
             this.lblAction.AutoSize = true;
             this.lblAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAction.Location = new System.Drawing.Point(182, 164);
+            this.lblAction.Location = new System.Drawing.Point(154, 164);
             this.lblAction.Name = "lblAction";
             this.lblAction.Size = new System.Drawing.Size(65, 13);
             this.lblAction.TabIndex = 11;
@@ -189,17 +194,40 @@
             this.groupBox1.Controls.Add(this.numericUpDown4);
             this.groupBox1.Controls.Add(this.numericUpDown3);
             this.groupBox1.Controls.Add(this.numericUpDown2);
-            this.groupBox1.Location = new System.Drawing.Point(18, 188);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(235, 137);
+            this.groupBox1.Size = new System.Drawing.Size(222, 131);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Advanced";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 99);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(76, 13);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Backlash Step";
+            // 
+            // numericUpDownBacklash
+            // 
+            this.numericUpDownBacklash.Location = new System.Drawing.Point(101, 99);
+            this.numericUpDownBacklash.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numericUpDownBacklash.Name = "numericUpDownBacklash";
+            this.numericUpDownBacklash.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownBacklash.TabIndex = 6;
+            this.numericUpDownBacklash.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownBacklash.ValueChanged += new System.EventHandler(this.numericUpDownBacklash_ValueChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 73);
+            this.label4.Location = new System.Drawing.Point(6, 73);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 13);
             this.label4.TabIndex = 5;
@@ -208,7 +236,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 46);
+            this.label3.Location = new System.Drawing.Point(5, 46);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 4;
@@ -217,7 +245,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 21);
+            this.label2.Location = new System.Drawing.Point(5, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 13);
             this.label2.TabIndex = 3;
@@ -225,7 +253,7 @@
             // 
             // numericUpDown4
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(109, 73);
+            this.numericUpDown4.Location = new System.Drawing.Point(101, 73);
             this.numericUpDown4.Maximum = new decimal(new int[] {
             300,
             0,
@@ -239,6 +267,7 @@
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown4.TabIndex = 2;
+            this.numericUpDown4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown4.Value = new decimal(new int[] {
             100,
             0,
@@ -248,7 +277,7 @@
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(109, 46);
+            this.numericUpDown3.Location = new System.Drawing.Point(100, 46);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             300,
             0,
@@ -262,6 +291,7 @@
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown3.TabIndex = 1;
+            this.numericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown3.Value = new decimal(new int[] {
             100,
             0,
@@ -271,7 +301,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(109, 19);
+            this.numericUpDown2.Location = new System.Drawing.Point(100, 19);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             200,
             0,
@@ -285,6 +315,7 @@
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown2.TabIndex = 0;
+            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown2.Value = new decimal(new int[] {
             100,
             0,
@@ -299,6 +330,7 @@
             this.txtBoxTemperature.ReadOnly = true;
             this.txtBoxTemperature.Size = new System.Drawing.Size(100, 20);
             this.txtBoxTemperature.TabIndex = 13;
+            this.txtBoxTemperature.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtBoxHumidity
             // 
@@ -307,6 +339,7 @@
             this.txtBoxHumidity.ReadOnly = true;
             this.txtBoxHumidity.Size = new System.Drawing.Size(100, 20);
             this.txtBoxHumidity.TabIndex = 14;
+            this.txtBoxHumidity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label5
             // 
@@ -353,46 +386,42 @@
             // 
             // label8
             // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(124, 328);
+            this.label8.Location = new System.Drawing.Point(108, 197);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(135, 13);
             this.label8.TabIndex = 19;
             this.label8.Text = "EQ ASCOM Focuser Driver";
             // 
-            // label9
+            // panel1
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 99);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 13);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Backlash Step";
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Location = new System.Drawing.Point(18, 188);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(230, 139);
+            this.panel1.TabIndex = 20;
+            this.panel1.Visible = false;
             // 
-            // numericUpDownBacklash
+            // btnShowAdvanced
             // 
-            this.numericUpDownBacklash.Location = new System.Drawing.Point(109, 99);
-            this.numericUpDownBacklash.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.numericUpDownBacklash.Name = "numericUpDownBacklash";
-            this.numericUpDownBacklash.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownBacklash.TabIndex = 6;
-            this.numericUpDownBacklash.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDownBacklash.ValueChanged += new System.EventHandler(this.numericUpDownBacklash_ValueChanged);
+            this.btnShowAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnShowAdvanced.Location = new System.Drawing.Point(17, 188);
+            this.btnShowAdvanced.Name = "btnShowAdvanced";
+            this.btnShowAdvanced.Size = new System.Drawing.Size(75, 23);
+            this.btnShowAdvanced.TabIndex = 21;
+            this.btnShowAdvanced.Text = "Advanced";
+            this.btnShowAdvanced.UseVisualStyleBackColor = true;
+            this.btnShowAdvanced.Click += new System.EventHandler(this.btnShowAdvanced_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(262, 350);
+            this.ClientSize = new System.Drawing.Size(255, 219);
+            this.Controls.Add(this.btnShowAdvanced);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnStop);
@@ -400,7 +429,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtBoxHumidity);
             this.Controls.Add(this.txtBoxTemperature);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblAction);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.textBoxMoveToPosition);
@@ -420,10 +448,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBacklash)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBacklash)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -459,5 +488,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDownBacklash;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnShowAdvanced;
     }
 }

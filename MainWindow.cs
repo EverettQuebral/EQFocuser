@@ -23,6 +23,8 @@ namespace ASCOM.EQFocuser
             InitializeComponent();
             InitControls();
 
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
         }
 
         delegate void SetCurrentPositionCallBack(int position);
@@ -180,6 +182,21 @@ namespace ASCOM.EQFocuser
         private void numericUpDownBacklash_ValueChanged(object sender, EventArgs e)
         {
             focuser.Action("L", numericUpDownBacklash.Value.ToString());
+        }
+
+
+        private void btnShowAdvanced_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = !panel1.Visible;
+
+            if (panel1.Visible)
+            {
+                this.Height = 395;
+            }
+            else
+            {
+                this.Height = 262;
+            }
         }
     }
 }
