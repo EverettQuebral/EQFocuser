@@ -23,6 +23,9 @@ This is an open source project for controlling a stepper motor controlled by Ard
 ![Component Diagram](Resources/Diagram.png?raw=true "Component Diagram")
 ![Schematic Diagram](Resources/Schematic.png?raw=true "Schematic Diagram")
 
+##### Video
+https://www.youtube.com/watch?v=E4LpXYvdvyA&t=5s
+
 ##### Screen Shot
 
 ###### Setup Dialog
@@ -31,5 +34,5 @@ This is an open source project for controlling a stepper motor controlled by Ard
 ###### Main Window controller
 ![Main Window](Resources/MainWindow.png?raw=true "Main Window")
 
-###### Download Driver
-The EQ ASCOM Driver 1.0.2 setup is available at https://dl.dropboxusercontent.com/u/28674742/EQFocuser-1.0.2-Setup.exe
+###### Driver Download
+You can download the latest Driver at the Release section https://github.com/EverettQuebral/EQFocuser/releases
