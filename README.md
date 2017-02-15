@@ -36,3 +36,6 @@ https://www.youtube.com/watch?v=E4LpXYvdvyA&t=5s
 
 ###### Driver Download
 You can download the latest Driver at the Release section https://github.com/EverettQuebral/EQFocuser/releases
+
+###### 3D Model Files
+
