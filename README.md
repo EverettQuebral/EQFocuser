@@ -43,3 +43,5 @@ You can download the latest Driver at the Release section https://github.com/Eve
 
 ###### 3D Model Files
 Available under the Resources folder
+
+![SCT Focuser Bracket](Resources/sct-bracket-3.stl?raw=true "SCT 3D Bracket")
