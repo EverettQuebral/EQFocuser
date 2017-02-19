@@ -29,10 +29,13 @@ https://www.youtube.com/watch?v=E4LpXYvdvyA&t=5s
 ##### Screen Shot
 
 ###### Setup Dialog
-![Setup Dialog](Resources/SetupScreen.png?raw=true "Setup Dialog")
+![Setup Dialog](Resources/Version%201.0.3%20Setup%20Dialog.png?raw=true "Setup Dialog")
 
 ###### Main Window controller
-![Main Window](Resources/MainWindow.png?raw=true "Main Window")
+![Main Window](Resources/Version%201.0.3%20Main%20Form.png?raw=true "Main Window")
+
+###### Advanced Windows controller
+![Advanced Window Controller](Resources/Version%201.0.3%20Main%20Form.png?raw=true "Advanced Window")
 
 ###### Driver Download
 You can download the latest Driver at the Release section https://github.com/EverettQuebral/EQFocuser/releases
