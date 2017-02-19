@@ -18,6 +18,7 @@
 // 24-dec-2016  Everett Quebral  6.0.1  Added support of Temperature, More error checking, full compatibility with absolute focusers
 //                                      support for servo
 // 15-Jan-2017  Everett Quebral  6.0.2  Added advanced configuration for Backlash
+// 18-Feb-2017  Everett Quebral  6.0.3  Support for 2 motors controlling 2 focusers
 
 
 // This is used to define code in the template that is specific to one class implementation

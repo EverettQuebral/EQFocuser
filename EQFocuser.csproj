@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="EQFocuser2Stepper.ino" />
     <None Include="EQFocuserStepper.ino" />
     <None Include="app.config" />
     <None Include="ASCOM.png" />
