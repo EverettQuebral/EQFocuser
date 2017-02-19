@@ -35,7 +35,7 @@ https://www.youtube.com/watch?v=E4LpXYvdvyA&t=5s
 ![Main Window](Resources/Version%201.0.3%20Main%20Form.png?raw=true "Main Window")
 
 ###### Advanced Windows controller
-![Advanced Window Controller](Resources/Version%201.0.3%20Main%20Form.png?raw=true "Advanced Window")
+![Advanced Window Controller](Resources/Version%201.0.3%20Complete%20Form.png?raw=true "Advanced Window")
 
 ###### Driver Download
 You can download the latest Driver at the Release section https://github.com/EverettQuebral/EQFocuser/releases
