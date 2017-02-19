@@ -128,6 +128,8 @@ namespace ASCOM.EQFocuser
 
         public event EventHandler<FocuserHumidityChangedEventArgs> FocuserHumidityChanged;
 
+        public event EventHandler<FocuserMotorChangedEventArgs> FocuserMotorChanged;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EQFocuser"/> class.
         /// Must be public for COM registration.
@@ -184,6 +186,14 @@ namespace ASCOM.EQFocuser
             if (FocuserHumidityChanged != null)
             {
                 FocuserHumidityChanged(this, e);
+            }
+        }
+
+        public virtual void OnFocuserMotorChanged(FocuserMotorChangedEventArgs e)
+        {
+            if (FocuserMotorChanged != null)
+            {
+                FocuserMotorChanged(this, e);
             }
         }
         #endregion

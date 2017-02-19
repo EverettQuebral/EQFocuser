@@ -20,6 +20,7 @@ namespace ASCOM.EQFocuser
             this.focuser.FocuserStateChanged += FocuserStateChanged;
             this.focuser.FocuserHumidityChanged += FocuserHumidityChanged;
             this.focuser.FocuserTemperatureChanged += FocuserTemperatureChanged;
+            this.focuser.FocuserMotorChanged += FocuserMotorChanged;
             InitializeComponent();
             InitControls();
 
@@ -90,6 +91,20 @@ namespace ASCOM.EQFocuser
             SetCurrentState(e.IsMoving);
         }
 
+        private void FocuserMotorChanged(object sender, FocuserMotorChangedEventArgs e)
+        {
+            if (e.Motor == 0)
+            {
+                checkBox1.Checked = true;
+                checkBox2.Checked = false;
+            }
+            if (e.Motor == 1)
+            {
+                checkBox1.Checked = false;
+                checkBox2.Checked = true;
+            }
+        }
+
         private void btnFastReverse_Click(object sender, EventArgs e)
         {
             focuser.CommandString("A", true);
@@ -98,6 +113,7 @@ namespace ASCOM.EQFocuser
         private void InitControls()
         {
             textBoxCurrentPosition.Text = focuser.Position.ToString();
+            checkBox1.Checked = true;
         }
 
         private void btnReverse_Click(object sender, EventArgs e)
@@ -191,12 +207,24 @@ namespace ASCOM.EQFocuser
 
             if (panel1.Visible)
             {
-                this.Height = 395;
+                this.Height = 420;
             }
             else
             {
                 this.Height = 262;
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox2.Checked = !checkBox1.Checked;
+            focuser.Action("M", "0");
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox1.Checked = !checkBox2.Checked;
+            focuser.Action("M", "1");
         }
     }
 }
