@@ -116,6 +116,8 @@ namespace ASCOM.EQFocuser
 
         private double humidity;
 
+        private int motor;
+
         /// <summary>
         /// Private variable that hold the reference to the Main Window
         /// </summary>
@@ -336,10 +338,18 @@ namespace ASCOM.EQFocuser
                     OnFocuserHumidityChanged(
                         new FocuserHumidityChangedEventArgs(message.Split(':')[1] + "%"));
                 }
+
+                if (message.Contains("SELECTEDMOTOR"))
+                {
+                    this.motor = Convert.ToInt32(message.Split(':')[1]);
+                    OnFocuserMotorChanged(
+                        new FocuserMotorChangedEventArgs(Convert.ToInt32(message.Split(':')[1])));
+                }
             }
             catch (Exception ex)
             {
                 tl.LogMessage("Encountered an Exeption", ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
 
         }

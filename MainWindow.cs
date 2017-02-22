@@ -32,6 +32,7 @@ namespace ASCOM.EQFocuser
         delegate void SetCurrentStateCallBack(bool isMoving);
         delegate void SetCurrentTemperatureCallBack(string temperature);
         delegate void SetCurrentHumidityCallBack(string humidity);
+        delegate void SetCurrentMotorCallBack(int motorNumber);
 
         private void SetCurrentTemperature(string temperature)
         {
@@ -76,6 +77,28 @@ namespace ASCOM.EQFocuser
             }
         }
 
+        private void SetCurrentMotor(int motorNumber)
+        {
+            if (checkBox1.InvokeRequired || checkBox2.InvokeRequired)
+            {
+                SetCurrentMotorCallBack d = new SetCurrentMotorCallBack(SetCurrentMotor);
+                this.Invoke(d, new Object[] { motorNumber });
+            }
+            else
+            {
+                if (motorNumber == 0)
+                {
+                    checkBox1.Checked = true;
+                    checkBox2.Checked = false;
+                }
+                if (motorNumber == 1)
+                {
+                    checkBox1.Checked = false;
+                    checkBox2.Checked = true;
+                }
+            }
+        }
+
         private void FocuserHumidityChanged(object sender, FocuserHumidityChangedEventArgs e)
         {
             SetCurrentHumidity(e.Humidity);
@@ -93,16 +116,7 @@ namespace ASCOM.EQFocuser
 
         private void FocuserMotorChanged(object sender, FocuserMotorChangedEventArgs e)
         {
-            if (e.Motor == 0)
-            {
-                checkBox1.Checked = true;
-                checkBox2.Checked = false;
-            }
-            if (e.Motor == 1)
-            {
-                checkBox1.Checked = false;
-                checkBox2.Checked = true;
-            }
+            SetCurrentMotor(e.Motor);
         }
 
         private void btnFastReverse_Click(object sender, EventArgs e)
@@ -217,11 +231,21 @@ namespace ASCOM.EQFocuser
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void checkBox1_Click(object sender, EventArgs e)
+        {
             checkBox2.Checked = !checkBox1.Checked;
             focuser.Action("M", "0");
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private void checkBox2_Click(object sender, EventArgs e)
         {
             checkBox1.Checked = !checkBox2.Checked;
             focuser.Action("M", "1");
