@@ -22,6 +22,7 @@ This is an open source project for controlling a stepper motor controlled by Ard
 ##### Diagram
 ![Component Diagram](Resources/Diagram.png?raw=true "Component Diagram")
 ![Schematic Diagram](Resources/Schematic.png?raw=true "Schematic Diagram")
+![Focuser 2 Motor](Resources/Focuser%202.png?raw=true "2 Motor Diagram")
 
 ##### Video
 https://www.youtube.com/watch?v=E4LpXYvdvyA&t=5s
@@ -42,3 +43,5 @@ You can download the latest Driver at the Release section https://github.com/Eve
 
 ###### 3D Model Files
 Available under the Resources folder
+
+![SCT Focuser Bracket](Resources/sct-bracket-3.stl?raw=true "SCT 3D Bracket")
