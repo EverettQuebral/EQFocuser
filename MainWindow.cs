@@ -121,7 +121,14 @@ namespace ASCOM.EQFocuser
 
         private void btnFastReverse_Click(object sender, EventArgs e)
         {
-            focuser.CommandString("A", true);
+            if (checkBoxReverse.Checked)
+            {
+                focuser.CommandString("D", true);
+            }
+            else
+            {
+                focuser.CommandString("A", true);
+            }
         }
 
         private void InitControls()
@@ -132,17 +139,38 @@ namespace ASCOM.EQFocuser
 
         private void btnReverse_Click(object sender, EventArgs e)
         {
-            focuser.CommandString("B", true);
+            if (checkBoxReverse.Checked)
+            {
+                focuser.CommandString("C", true);
+            }
+            else
+            {
+                focuser.CommandString("B", true);
+            }   
         }
 
         private void btnForward_Click(object sender, EventArgs e)
         {
-            focuser.CommandString("C", true);
+            if (checkBoxReverse.Checked)
+            {
+                focuser.CommandString("B", true);
+            }
+            else
+            {
+                focuser.CommandString("C", true);
+            }
         }
 
         private void btnFastForward_Click(object sender, EventArgs e)
         {
-            focuser.CommandString("D", true);
+            if (checkBoxReverse.Checked)
+            {
+                focuser.CommandString("A", true);
+            }
+            else
+            {
+                focuser.CommandString("D", true);
+            }
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)

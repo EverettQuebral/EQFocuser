@@ -61,6 +61,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnShowAdvanced = new System.Windows.Forms.Button();
+            this.checkBoxReverse = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBacklash)).BeginInit();
@@ -152,7 +153,7 @@
             // 
             this.btnMoveTo.Location = new System.Drawing.Point(18, 130);
             this.btnMoveTo.Name = "btnMoveTo";
-            this.btnMoveTo.Size = new System.Drawing.Size(75, 23);
+            this.btnMoveTo.Size = new System.Drawing.Size(68, 23);
             this.btnMoveTo.TabIndex = 8;
             this.btnMoveTo.Text = "Move To";
             this.btnMoveTo.UseVisualStyleBackColor = true;
@@ -160,9 +161,9 @@
             // 
             // textBoxMoveToPosition
             // 
-            this.textBoxMoveToPosition.Location = new System.Drawing.Point(99, 132);
+            this.textBoxMoveToPosition.Location = new System.Drawing.Point(92, 132);
             this.textBoxMoveToPosition.Name = "textBoxMoveToPosition";
-            this.textBoxMoveToPosition.Size = new System.Drawing.Size(138, 20);
+            this.textBoxMoveToPosition.Size = new System.Drawing.Size(59, 20);
             this.textBoxMoveToPosition.TabIndex = 9;
             this.textBoxMoveToPosition.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -442,12 +443,23 @@
             this.btnShowAdvanced.UseVisualStyleBackColor = true;
             this.btnShowAdvanced.Click += new System.EventHandler(this.btnShowAdvanced_Click);
             // 
+            // checkBoxReverse
+            // 
+            this.checkBoxReverse.AutoSize = true;
+            this.checkBoxReverse.Location = new System.Drawing.Point(156, 135);
+            this.checkBoxReverse.Name = "checkBoxReverse";
+            this.checkBoxReverse.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxReverse.TabIndex = 22;
+            this.checkBoxReverse.Text = "REVERSE";
+            this.checkBoxReverse.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(267, 219);
+            this.Controls.Add(this.checkBoxReverse);
             this.Controls.Add(this.btnShowAdvanced);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label8);
@@ -468,6 +480,8 @@
             this.Controls.Add(this.btnForward);
             this.Controls.Add(this.btnReverse);
             this.Controls.Add(this.btnFastReverse);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainWindow";
             this.ShowIcon = false;
             this.Text = "EQ Focuser";
@@ -520,5 +534,6 @@
         private System.Windows.Forms.Button btnShowAdvanced;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxReverse;
     }
 }
