@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The ASCOM Initiative")]
 [assembly: AssemblyProduct("ASCOM Focuser driver for EQFocuser")]
-[assembly: AssemblyCopyright("Copyright © 2016 The ASCOM Initiative")]
+[assembly: AssemblyCopyright("Copyright © 2017 The ASCOM Initiative")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

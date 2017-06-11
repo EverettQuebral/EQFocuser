@@ -249,7 +249,7 @@ namespace ASCOM.EQFocuser
 
             if (panel1.Visible)
             {
-                this.Height = 420;
+                this.Height = 450;
             }
             else
             {

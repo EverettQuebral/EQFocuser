@@ -409,7 +409,7 @@ namespace ASCOM.EQFocuser
                     }
                     catch (Exception e)
                     {
-
+                        System.Diagnostics.Debug.WriteLine(e.Message);
                         connectedState = false;
                         tl.LogMessage("Cannot Open Serial Port", comPort);
                         if (serialPort.IsOpen)

@@ -126,6 +126,7 @@
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
     <None Include="EQFocuser2Stepper.ino" />
+    <None Include="EQFocuserStepper-EasyDriver-NEMA17-Geared.ino" />
     <None Include="EQFocuserStepper-MotorShield-NEMA17.ino" />
     <None Include="EQFocuserStepper.ino" />
     <None Include="app.config" />
