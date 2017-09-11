@@ -5,7 +5,7 @@
 [Setup]
 AppID={{44d473a9-5f1c-43b3-8207-33bfbb38777e}
 AppName=ASCOM EQFocuser Focuser Driver
-AppVerName=ASCOM EQFocuser Focuser Driver 1.0.3
+AppVerName=ASCOM EQFocuser Focuser Driver 1.0.7
 AppVersion=1.0.2
 AppPublisher=Everett Quebral <Everett.Quebral@gmail.com>
 AppPublisherURL=mailto:Everett.Quebral@gmail.com
