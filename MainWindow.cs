@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Globalization;
 
 
 namespace ASCOM.EQFocuser
@@ -121,14 +122,7 @@ namespace ASCOM.EQFocuser
 
         private void btnFastReverse_Click(object sender, EventArgs e)
         {
-            if (checkBoxReverse.Checked)
-            {
-                focuser.CommandString("D", true);
-            }
-            else
-            {
-                focuser.CommandString("A", true);
-            }
+            focuser.CommandString("A", true);
         }
 
         private void InitControls()
@@ -139,38 +133,18 @@ namespace ASCOM.EQFocuser
 
         private void btnReverse_Click(object sender, EventArgs e)
         {
-            if (checkBoxReverse.Checked)
-            {
-                focuser.CommandString("C", true);
-            }
-            else
-            {
-                focuser.CommandString("B", true);
-            }   
+
+            focuser.CommandString("B", true);
         }
 
         private void btnForward_Click(object sender, EventArgs e)
         {
-            if (checkBoxReverse.Checked)
-            {
-                focuser.CommandString("B", true);
-            }
-            else
-            {
-                focuser.CommandString("C", true);
-            }
+            focuser.CommandString("C", true);
         }
 
         private void btnFastForward_Click(object sender, EventArgs e)
         {
-            if (checkBoxReverse.Checked)
-            {
-                focuser.CommandString("A", true);
-            }
-            else
-            {
-                focuser.CommandString("D", true);
-            }
+            focuser.CommandString("D", true);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -230,6 +204,9 @@ namespace ASCOM.EQFocuser
         private void MainWindow_Load(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Showing Main Window");
+            System.Diagnostics.Debug.WriteLine("Height " + this.Height);
+            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            this.Text = "EQFocuser v" + String.Format(CultureInfo.InvariantCulture, "{0}.{1}.{2}", version.Major, version.Minor, version.Revision);
         }
 
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
@@ -249,12 +226,14 @@ namespace ASCOM.EQFocuser
 
             if (panel1.Visible)
             {
-                this.Height = 450;
+                this.Height = 665;
             }
             else
             {
-                this.Height = 262;
+                this.Height = 376;
             }
+
+            txtBoxTemperature.Text = this.Height.ToString();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -277,6 +256,16 @@ namespace ASCOM.EQFocuser
         {
             checkBox1.Checked = !checkBox2.Checked;
             focuser.Action("M", "1");
+        }
+
+        private void lblAction_MouseClick(object sender, MouseEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(this.Height.ToString());
+        }
+
+        private void checkBoxReverse_CheckedChanged(object sender, EventArgs e)
+        {
+            focuser.CommandBool("Y", checkBoxReverse.Checked);
         }
     }
 }

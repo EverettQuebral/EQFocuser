@@ -5,7 +5,7 @@
 #include <AccelStepper.h>
 
 // Define the stepper and the pins it will use
-AccelStepper stepper1(AccelStepper::DRIVER, 9, 8);
+AccelStepper stepper1(AccelStepper::DRIVER, 8, 9);
 
 // for command purposes
 String inputString = "";
@@ -36,6 +36,7 @@ void setup() {
   
   stepper1.setMaxSpeed(10000.0);
   stepper1.setAcceleration(3000.0);
+//  stepper1.setPinsInverted(true, false, false);
 //  stepper1.setSpeed(3000);
 
   inputString.reserve(200);
@@ -196,6 +197,12 @@ void serialCommand(String commandString) {
   case 'X':  // GET STATUS - may not be needed
   case 'x':
     stepper1.stop();
+    break;
+  case 'Y':  // DIRECTION
+  case 'y':
+    stepper1.setPinsInverted(_step, false, false);
+    _answer += "SET-DIRECTION:";
+    _answer += _step;
     break;
   case 'Z':  // IDENTIFY
   case 'z':  _answer += "EQFOCUSER_STEPPER";

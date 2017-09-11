@@ -41,6 +41,8 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.lblAction = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -62,16 +64,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnShowAdvanced = new System.Windows.Forms.Button();
             this.checkBoxReverse = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBacklash)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.SuspendLayout();
             // 
             // btnFastReverse
@@ -200,6 +200,7 @@
             this.lblAction.Size = new System.Drawing.Size(91, 20);
             this.lblAction.TabIndex = 11;
             this.lblAction.Text = "READY....";
+            this.lblAction.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblAction_MouseClick);
             // 
             // groupBox1
             // 
@@ -223,6 +224,43 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Advanced";
+            // 
+            // numericUpDown5
+            // 
+            this.numericUpDown5.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown5.Location = new System.Drawing.Point(152, 245);
+            this.numericUpDown5.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.numericUpDown5.Minimum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numericUpDown5.Name = "numericUpDown5";
+            this.numericUpDown5.Size = new System.Drawing.Size(182, 26);
+            this.numericUpDown5.TabIndex = 11;
+            this.numericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown5.Value = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 247);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(98, 20);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Max Position";
             // 
             // checkBox2
             // 
@@ -451,7 +489,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(164, 303);
+            this.label8.Location = new System.Drawing.Point(164, 296);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(201, 20);
@@ -471,7 +509,7 @@
             // btnShowAdvanced
             // 
             this.btnShowAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnShowAdvanced.Location = new System.Drawing.Point(26, 289);
+            this.btnShowAdvanced.Location = new System.Drawing.Point(27, 289);
             this.btnShowAdvanced.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnShowAdvanced.Name = "btnShowAdvanced";
             this.btnShowAdvanced.Size = new System.Drawing.Size(112, 35);
@@ -490,50 +528,14 @@
             this.checkBoxReverse.TabIndex = 22;
             this.checkBoxReverse.Text = "REVERSE";
             this.checkBoxReverse.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 247);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(98, 20);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Max Position";
-            // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.Increment = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Location = new System.Drawing.Point(152, 245);
-            this.numericUpDown5.Maximum = new decimal(new int[] {
-            50000,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Minimum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(182, 26);
-            this.numericUpDown5.TabIndex = 11;
-            this.numericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown5.Value = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.checkBoxReverse.CheckedChanged += new System.EventHandler(this.checkBoxReverse_CheckedChanged);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(384, 337);
+            this.ClientSize = new System.Drawing.Size(384, 334);
             this.Controls.Add(this.checkBoxReverse);
             this.Controls.Add(this.btnShowAdvanced);
             this.Controls.Add(this.panel1);
@@ -560,18 +562,18 @@
             this.MinimizeBox = false;
             this.Name = "MainWindow";
             this.ShowIcon = false;
-            this.Text = "EQ Focuser";
+            this.Text = "EQ Focuser V1.6";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWindow_FormClosed);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBacklash)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

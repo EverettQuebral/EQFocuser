@@ -262,11 +262,16 @@ namespace ASCOM.EQFocuser
         public bool CommandBool(string command, bool raw)
         {
             CheckConnected("CommandBool");
-            string ret = CommandString(command, raw);
+            // string ret = CommandString(command, raw);
             // TODO decode the return string and return true or false
             // or
-            throw new ASCOM.MethodNotImplementedException("CommandBool");
+            // throw new ASCOM.MethodNotImplementedException("CommandBool");
             // DO NOT have both these sections!  One or the other
+            if (IsConnected)
+            {
+                serialPort.WriteLine(command + ":" + Convert.ToInt32(raw));
+            }
+            return raw;
         }
 
         public string CommandString(string command, bool raw)
@@ -285,7 +290,7 @@ namespace ASCOM.EQFocuser
 
             tl.LogMessage("command ", message);
 
-            System.Diagnostics.Debug.WriteLine("messaage from arduino " + message);
+            System.Diagnostics.Debug.WriteLine("message from arduino " + message);
             return message;
         }
 
@@ -395,9 +400,9 @@ namespace ASCOM.EQFocuser
                         Action("k", "");    // GET TEMPERATURE AND HUMIDITY
 
                         // when we establish connection, set up the increment, step and speed
-                        Action("I", "100"); // SET SPEED
-                        Action("J", "200"); // SET MAXSPEED
-                        Action("H", "200"); // SET ACCELERATION
+                        Action("I", "1000"); // SET SPEED
+                        Action("J", "1000"); // SET MAXSPEED
+                        Action("H", "1000"); // SET ACCELERATION
 
                         // Show the Window for the EQFocuser here
                         if (showUI)
@@ -457,7 +462,7 @@ namespace ASCOM.EQFocuser
             get
             {
                 Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-                string driverInfo = "Information about the driver itself. Version: " + String.Format(CultureInfo.InvariantCulture, "{0}.{1}", version.Major, version.Minor);
+                string driverInfo = "Information about the driver itself. Version: " + String.Format(CultureInfo.InvariantCulture, "{0}.{1}.{2}", version.Major, version.Minor, version.Build);
                 tl.LogMessage("DriverInfo Get", driverInfo);
                 return driverInfo;
             }
