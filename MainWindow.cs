@@ -222,16 +222,16 @@ namespace ASCOM.EQFocuser
 
         private void btnShowAdvanced_Click(object sender, EventArgs e)
         {
-            panel1.Visible = !panel1.Visible;
+            //panel1.Visible = !panel1.Visible;
 
-            if (panel1.Visible)
-            {
-                this.Height = 665;
-            }
-            else
-            {
-                this.Height = 376;
-            }
+            //if (panel1.Visible)
+            //{
+            //    this.Height = 665;
+            //}
+            //else
+            //{
+            //    this.Height = 376;
+            //}
 
             txtBoxTemperature.Text = this.Height.ToString();
         }

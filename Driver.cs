@@ -400,9 +400,9 @@ namespace ASCOM.EQFocuser
                         Action("k", "");    // GET TEMPERATURE AND HUMIDITY
 
                         // when we establish connection, set up the increment, step and speed
-                        Action("I", "1000"); // SET SPEED
-                        Action("J", "1000"); // SET MAXSPEED
-                        Action("H", "1000"); // SET ACCELERATION
+                        Action("I", "300"); // SET SPEED
+                        Action("J", "300"); // SET MAXSPEED
+                        Action("H", "300"); // SET ACCELERATION
 
                         // Show the Window for the EQFocuser here
                         if (showUI)

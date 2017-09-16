@@ -34,10 +34,10 @@ void setup() {
   Serial.begin(115200);
   Serial.println("EQFOCUSER_STEPPER#");
   
-  stepper1.setMaxSpeed(10000.0);
-  stepper1.setAcceleration(3000.0);
+  stepper1.setMaxSpeed(300.0);
+  stepper1.setAcceleration(300.0);
 //  stepper1.setPinsInverted(true, false, false);
-//  stepper1.setSpeed(3000);
+  stepper1.setSpeed(300);
 
   inputString.reserve(200);
 

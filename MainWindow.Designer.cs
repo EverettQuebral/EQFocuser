@@ -362,7 +362,7 @@
             this.numericUpDown4.TabIndex = 2;
             this.numericUpDown4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown4.Value = new decimal(new int[] {
-            100,
+            300,
             0,
             0,
             0});
@@ -387,7 +387,7 @@
             this.numericUpDown3.TabIndex = 1;
             this.numericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown3.Value = new decimal(new int[] {
-            100,
+            300,
             0,
             0,
             0});
@@ -412,7 +412,7 @@
             this.numericUpDown2.TabIndex = 0;
             this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown2.Value = new decimal(new int[] {
-            100,
+            300,
             0,
             0,
             0});
@@ -489,7 +489,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(164, 296);
+            this.label8.Location = new System.Drawing.Point(170, 600);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(201, 20);
@@ -504,12 +504,11 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(345, 294);
             this.panel1.TabIndex = 20;
-            this.panel1.Visible = false;
             // 
             // btnShowAdvanced
             // 
             this.btnShowAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnShowAdvanced.Location = new System.Drawing.Point(27, 289);
+            this.btnShowAdvanced.Location = new System.Drawing.Point(27, 593);
             this.btnShowAdvanced.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnShowAdvanced.Name = "btnShowAdvanced";
             this.btnShowAdvanced.Size = new System.Drawing.Size(112, 35);
@@ -535,7 +534,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(384, 334);
+            this.ClientSize = new System.Drawing.Size(390, 638);
             this.Controls.Add(this.checkBoxReverse);
             this.Controls.Add(this.btnShowAdvanced);
             this.Controls.Add(this.panel1);
@@ -562,7 +561,7 @@
             this.MinimizeBox = false;
             this.Name = "MainWindow";
             this.ShowIcon = false;
-            this.Text = "EQ Focuser V1.6";
+            this.Text = "EQ Focuser";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWindow_FormClosed);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
