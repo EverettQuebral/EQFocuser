@@ -214,10 +214,9 @@ namespace ASCOM.EQFocuser
             // consider only showing the setup dialog if not connected
             // or call a different dialog if connected
 
-            if (connectedState)
+            if (IsConnected)
             {
                 System.Windows.Forms.MessageBox.Show("Already connected, just press OK");
-                return;
             }
 
             using (SetupDialogForm F = new SetupDialogForm(this.DriverInfo))
@@ -246,7 +245,7 @@ namespace ASCOM.EQFocuser
             {
                 serialPort.WriteLine(actionName + ":" + actionParameters);
             }
-            return "";
+            return actionName;
         }
 
         public void CommandBlind(string command, bool raw)
