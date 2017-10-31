@@ -40,7 +40,7 @@ or
 
 ##### Diagrams
 
-###### Diagram Using ULN2003 Motro Driver
+###### Diagram Using ULN2003 Motor Driver
 ![Component Diagram](Resources/Diagram.png?raw=true "Component Diagram")
 ![Schematic Diagram](Resources/Schematic.png?raw=true "Schematic Diagram")
 ![Focuser 2 Motor](Resources/Focuser%202.png?raw=true "2 Motor Diagram")
