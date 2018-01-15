@@ -37,6 +37,7 @@ namespace ASCOM.EQFocuser
             this.label3 = new System.Windows.Forms.Label();
             this.showUI = new System.Windows.Forms.CheckBox();
             this.lblMotorDriver = new System.Windows.Forms.Label();
+            this.btnReScan = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picASCOM)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,9 +103,9 @@ namespace ASCOM.EQFocuser
             // 
             this.comboBoxComPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxComPort.FormattingEnabled = true;
-            this.comboBoxComPort.Location = new System.Drawing.Point(227, 85);
+            this.comboBoxComPort.Location = new System.Drawing.Point(224, 85);
             this.comboBoxComPort.Name = "comboBoxComPort";
-            this.comboBoxComPort.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxComPort.Size = new System.Drawing.Size(124, 21);
             this.comboBoxComPort.TabIndex = 7;
             this.comboBoxComPort.SelectedIndexChanged += new System.EventHandler(this.comboBoxComPort_SelectedIndexChanged);
             // 
@@ -139,11 +140,22 @@ namespace ASCOM.EQFocuser
             this.lblMotorDriver.TabIndex = 10;
             this.lblMotorDriver.Text = "Detected Motor Driver";
             // 
+            // btnReScan
+            // 
+            this.btnReScan.Location = new System.Drawing.Point(224, 108);
+            this.btnReScan.Name = "btnReScan";
+            this.btnReScan.Size = new System.Drawing.Size(122, 23);
+            this.btnReScan.TabIndex = 11;
+            this.btnReScan.Text = "Re SCAN Ports";
+            this.btnReScan.UseVisualStyleBackColor = true;
+            this.btnReScan.Click += new System.EventHandler(this.btnReScan_Click);
+            // 
             // SetupDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(358, 168);
+            this.Controls.Add(this.btnReScan);
             this.Controls.Add(this.lblMotorDriver);
             this.Controls.Add(this.showUI);
             this.Controls.Add(this.label3);
@@ -177,5 +189,6 @@ namespace ASCOM.EQFocuser
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox showUI;
         private System.Windows.Forms.Label lblMotorDriver;
+        private System.Windows.Forms.Button btnReScan;
     }
 }

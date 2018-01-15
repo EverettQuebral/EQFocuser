@@ -142,5 +142,10 @@ namespace ASCOM.EQFocuser
         {
 
         }
+
+        private void btnReScan_Click(object sender, EventArgs e)
+        {
+            this.InitUI();
+        }
     }
 }

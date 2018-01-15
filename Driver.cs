@@ -303,7 +303,7 @@ namespace ASCOM.EQFocuser
             utilities = null;
             astroUtilities.Dispose();
             astroUtilities = null;
-            serialPort.Close();
+            //serialPort.Close();
         }
 
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
